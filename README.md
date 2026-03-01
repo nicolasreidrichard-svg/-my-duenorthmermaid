@@ -439,8 +439,11 @@ flowchart LR
 ### With the Mermaid CLI
 
 ```bash
-# Install
-npm install -g @mermaid-js/mermaid-cli
+# Run without installing (recommended)
+npx @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg
+
+# Or install globally
+npm install -g @mermaid-js/mermaid-cli@11.4.1
 
 # Render a diagram
 mmdc -i diagram.mmd -o diagram.svg
@@ -457,7 +460,8 @@ mmdc -i diagram.mmd -o diagram.svg
           A[Start] --> B[End]
     </pre>
     <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+      // Pin to a specific version to prevent supply chain attacks
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
       mermaid.initialize({ startOnLoad: true, theme: 'default' });
     </script>
   </body>
