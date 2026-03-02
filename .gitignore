@@ -1,0 +1,15 @@
+# Ignore common editor/OS artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Ignore any locally generated diagram output files (e.g., from mmdc)
+generated/*.svg
+generated/*.png
+generated/*.pdf
+
+# Ignore Node.js artifacts if someone clones and runs the examples locally
+node_modules/
+npm-debug.log*
