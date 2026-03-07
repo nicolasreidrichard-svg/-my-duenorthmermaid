@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🧜 My DueNorth Mermaid</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, sans-serif',
+    });
+    window.mermaid = mermaid;
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Variables ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0d1117;
+      --surface:      #161b22;
+      --surface2:     #21262d;
+      --border:       #30363d;
+      --border-light: #21262d;
+      --text:         #e6edf3;
+      --text-muted:   #8b949e;
+      --text-dim:     #656d76;
+      --accent:       #58a6ff;
+      --accent-glow:  rgba(88,166,255,.25);
+      --pink:         #f78166;
+      --green:        #3fb950;
+      --yellow:       #d29922;
+      --purple:       #bc8cff;
+      --teal:         #39d353;
+      --radius:       12px;
+      --radius-sm:    8px;
+      --shadow:       0 8px 32px rgba(0,0,0,.6);
+      --transition:   .2s ease;
+    }
+
+    [data-theme="light"] {
+      --bg:           #f6f8fa;
+      --surface:      #ffffff;
+      --surface2:     #f0f3f6;
+      --border:       #d0d7de;
+      --border-light: #e8ecf0;
+      --text:         #1f2328;
+      --text-muted:   #656d76;
+      --text-dim:     #8c959f;
+      --accent:       #0969da;
+      --accent-glow:  rgba(9,105,218,.15);
+      --pink:         #cf222e;
+      --green:        #1a7f37;
+      --yellow:       #9a6700;
+      --purple:       #8250df;
+      --shadow:       0 4px 16px rgba(0,0,0,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* ─── Top Nav ────────────────────────────────────────────── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,17,23,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      height: 60px;
+      gap: 16px;
+    }
+    [data-theme="light"] .topnav {
+      background: rgba(246,248,250,.9);
+    }
+    .topnav-logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .topnav-logo span { color: var(--accent); }
+    .topnav-spacer { flex: 1; }
+    .theme-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), transform .15s;
+    }
+    .theme-btn:hover { background: var(--border); transform: scale(1.08); }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(88,166,255,.12) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: .78rem;
+      color: var(--text-muted);
+      letter-spacing: .04em;
+      margin-bottom: 20px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity:1; transform: scale(1); }
+      50%       { opacity:.5; transform: scale(.8); }
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: .8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .chip:hover, .chip.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* ─── Main Layout ────────────────────────────────────────── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── Section Header ─────────────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 48px 0 20px;
+    }
+    .section-icon {
+      font-size: 1.6rem;
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .section-info h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .section-info p {
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+
+    /* ─── Diagram Card ───────────────────────────────────────── */
+    .diagram-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .diagram-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-glow), var(--shadow);
+    }
+
+    /* ─── Tab Bar ────────────────────────────────────────────── */
+    .tab-bar {
+      display: flex;
+      align-items: center;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+      gap: 4px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: .82rem;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 10px 12px;
+      border-bottom: 2px solid transparent;
+      transition: color var(--transition), border-color var(--transition);
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+    .tab-spacer { flex: 1; }
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      font-size: .75rem;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 4px 10px;
+      display: flex; align-items: center; gap: 5px;
+      transition: all var(--transition);
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+    /* ─── Panels ─────────────────────────────────────────────── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ─── Preview Panel ──────────────────────────────────────── */
+    .preview-panel {
+      padding: 32px 24px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+    }
+    .preview-panel .mermaid-wrap {
+      width: 100%;
+      overflow-x: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-panel svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .preview-panel .mermaid { width: 100%; text-align: center; }
+
+    /* ─── Code Panel ─────────────────────────────────────────── */
+    .code-panel {
+      background: #010409;
+      overflow: auto;
+      max-height: 520px;
+    }
+    [data-theme="light"] .code-panel { background: #f0f3f6; }
+    .code-panel pre {
+      padding: 24px;
+      margin: 0;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: .82rem;
+      line-height: 1.7;
+      color: #c9d1d9;
+      white-space: pre;
+      tab-size: 2;
+    }
+    [data-theme="light"] .code-panel pre { color: #1f2328; }
+
+    /* Syntax highlight classes */
+    .kw  { color: #ff7b72; }           /* keywords */
+    .str { color: #a5d6ff; }           /* strings / labels */
+    .cmt { color: #8b949e; font-style: italic; }  /* comments */
+    .nm  { color: #79c0ff; }           /* names / IDs */
+    .op  { color: #ffa657; }           /* operators / arrows */
+    [data-theme="light"] .kw  { color: #cf222e; }
+    [data-theme="light"] .str { color: #0550ae; }
+    [data-theme="light"] .cmt { color: #6e7781; }
+    [data-theme="light"] .nm  { color: #0969da; }
+    [data-theme="light"] .op  { color: #953800; }
+
+    /* ─── Stats Bar ──────────────────────────────────────────── */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      margin: 48px 0 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      padding: 20px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ─── Resources ──────────────────────────────────────────── */
+    .resources {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .resource-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all var(--transition);
+    }
+    .resource-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      transform: translateY(-2px);
+    }
+    .resource-icon { font-size: 1.4rem; }
+    .resource-info strong { display: block; font-size: .9rem; }
+    .resource-info span { font-size: .78rem; color: var(--text-muted); }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ─── Scrollbar ──────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+    /* ─── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero { padding: 48px 16px 40px; }
+      .main { padding: 0 16px 60px; }
+      .stats { flex-direction: column; gap: 0; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+
+    /* ─── Loading spinner ────────────────────────────────────── */
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- ═══ TOP NAV ════════════════════════════════════════════════ -->
+<nav class="topnav">
+  <a class="topnav-logo" href="#">🧜 <span>DueNorth</span> Mermaid</a>
+  <div class="topnav-spacer"></div>
+  <button class="theme-btn" id="themeToggle" title="Toggle theme">🌙</button>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge"><span class="dot"></span> Powered by Mermaid v11.4.1</div>
+  <h1>Making Mermaid<br/><em>Awesome</em></h1>
+  <p>A comprehensive showcase of 10 Mermaid diagram types — from simple flowcharts to complex ER diagrams.</p>
+  <div class="hero-chips">
+    <a class="chip" href="#flowchart">🔷 Flowchart</a>
+    <a class="chip" href="#sequence">🔁 Sequence</a>
+    <a class="chip" href="#gantt">📅 Gantt</a>
+    <a class="chip" href="#class">🏛️ Class</a>
+    <a class="chip" href="#state">🔄 State</a>
+    <a class="chip" href="#er">🗄️ ER Diagram</a>
+    <a class="chip" href="#journey">🧭 Journey</a>
+    <a class="chip" href="#pie">🥧 Pie</a>
+    <a class="chip" href="#quadrant">📊 Quadrant</a>
+    <a class="chip" href="#timeline">📆 Timeline</a>
+  </div>
+</header>
+
+<!-- ═══ MAIN ════════════════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- FLOWCHART ──────────────────────────────────────────────── -->
+  <div class="section-header" id="flowchart">
+    <div class="section-icon">🔷</div>
+    <div class="section-info">
+      <h2>Flowchart</h2>
+      <p>Software development workflow with branching decision nodes</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-flowchart')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-flowchart')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'flowchart')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-flowchart">
+      <div class="spinner" id="spin-flowchart"></div>
+    </div>
+    <div class="panel code-panel" id="code-flowchart"><pre id="raw-flowchart"></pre></div>
+  </div>
+
+  <!-- SEQUENCE ───────────────────────────────────────────────── -->
+  <div class="section-header" id="sequence">
+    <div class="section-icon">🔁</div>
+    <div class="section-info">
+      <h2>Sequence Diagram</h2>
+      <p>User authentication flow across browser, API and database</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-sequence')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-sequence')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'sequence')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-sequence">
+      <div class="spinner" id="spin-sequence"></div>
+    </div>
+    <div class="panel code-panel" id="code-sequence"><pre id="raw-sequence"></pre></div>
+  </div>
+
+  <!-- GANTT ──────────────────────────────────────────────────── -->
+  <div class="section-header" id="gantt">
+    <div class="section-icon">📅</div>
+    <div class="section-info">
+      <h2>Gantt Chart</h2>
+      <p>Web application project timeline across planning, dev, testing and deployment</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-gantt')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-gantt')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'gantt')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-gantt">
+      <div class="spinner" id="spin-gantt"></div>
+    </div>
+    <div class="panel code-panel" id="code-gantt"><pre id="raw-gantt"></pre></div>
+  </div>
+
+  <!-- CLASS ──────────────────────────────────────────────────── -->
+  <div class="section-header" id="class">
+    <div class="section-icon">🏛️</div>
+    <div class="section-info">
+      <h2>Class Diagram</h2>
+      <p>E-commerce domain model with Users, Orders, Products and Payments</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-class')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-class')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'class')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-class">
+      <div class="spinner" id="spin-class"></div>
+    </div>
+    <div class="panel code-panel" id="code-class"><pre id="raw-class"></pre></div>
+  </div>
+
+  <!-- STATE ──────────────────────────────────────────────────── -->
+  <div class="section-header" id="state">
+    <div class="section-icon">🔄</div>
+    <div class="section-info">
+      <h2>State Diagram</h2>
+      <p>Order lifecycle from placement to delivery and refunds</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-state')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-state')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'state')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-state">
+      <div class="spinner" id="spin-state"></div>
+    </div>
+    <div class="panel code-panel" id="code-state"><pre id="raw-state"></pre></div>
+  </div>
+
+  <!-- ER ─────────────────────────────────────────────────────── -->
+  <div class="section-header" id="er">
+    <div class="section-icon">🗄️</div>
+    <div class="section-info">
+      <h2>Entity Relationship Diagram</h2>
+      <p>Blog platform database schema with users, posts, tags and comments</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-er')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-er')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'er')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-er">
+      <div class="spinner" id="spin-er"></div>
+    </div>
+    <div class="panel code-panel" id="code-er"><pre id="raw-er"></pre></div>
+  </div>
+
+  <!-- JOURNEY ────────────────────────────────────────────────── -->
+  <div class="section-header" id="journey">
+    <div class="section-icon">🧭</div>
+    <div class="section-info">
+      <h2>User Journey</h2>
+      <p>New customer onboarding from discovery to retention</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-journey')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-journey')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'journey')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-journey">
+      <div class="spinner" id="spin-journey"></div>
+    </div>
+    <div class="panel code-panel" id="code-journey"><pre id="raw-journey"></pre></div>
+  </div>
+
+  <!-- PIE ────────────────────────────────────────────────────── -->
+  <div class="section-header" id="pie">
+    <div class="section-icon">🥧</div>
+    <div class="section-info">
+      <h2>Pie Chart</h2>
+      <p>Distribution of programming languages used in the project</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-pie')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-pie')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'pie')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-pie">
+      <div class="spinner" id="spin-pie"></div>
+    </div>
+    <div class="panel code-panel" id="code-pie"><pre id="raw-pie"></pre></div>
+  </div>
+
+  <!-- QUADRANT ───────────────────────────────────────────────── -->
+  <div class="section-header" id="quadrant">
+    <div class="section-icon">📊</div>
+    <div class="section-info">
+      <h2>Quadrant Chart</h2>
+      <p>Feature prioritization matrix by effort vs. impact</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-quadrant')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-quadrant')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'quadrant')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-quadrant">
+      <div class="spinner" id="spin-quadrant"></div>
+    </div>
+    <div class="panel code-panel" id="code-quadrant"><pre id="raw-quadrant"></pre></div>
+  </div>
+
+  <!-- TIMELINE ───────────────────────────────────────────────── -->
+  <div class="section-header" id="timeline">
+    <div class="section-icon">📆</div>
+    <div class="section-info">
+      <h2>Timeline</h2>
+      <p>Key milestones in Mermaid.js history from 2014 to 2024</p>
+    </div>
+  </div>
+  <div class="diagram-card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab(this,'preview-timeline')">👁 Preview</button>
+      <button class="tab-btn" onclick="switchTab(this,'code-timeline')">💻 Code</button>
+      <div class="tab-spacer"></div>
+      <button class="copy-btn" onclick="copyCode(this,'timeline')">📋 Copy</button>
+    </div>
+    <div class="panel active preview-panel" id="preview-timeline">
+      <div class="spinner" id="spin-timeline"></div>
+    </div>
+    <div class="panel code-panel" id="code-timeline"><pre id="raw-timeline"></pre></div>
+  </div>
+
+  <!-- STATS ──────────────────────────────────────────────────── -->
+  <div class="stats">
+    <div class="stat-item">
+      <span class="stat-value">10</span>
+      <div class="stat-label">Diagram Types</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">v11</span>
+      <div class="stat-label">Mermaid Version</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">100%</span>
+      <div class="stat-label">Client-Side Render</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">0</span>
+      <div class="stat-label">Dependencies (server)</div>
+    </div>
+  </div>
+
+  <!-- RESOURCES ──────────────────────────────────────────────── -->
+  <div class="resources">
+    <a class="resource-card" href="https://mermaid.js.org/" target="_blank">
+      <span class="resource-icon">📖</span>
+      <div class="resource-info">
+        <strong>Official Docs</strong>
+        <span>mermaid.js.org</span>
+      </div>
+    </a>
+    <a class="resource-card" href="https://mermaid.live/" target="_blank">
+      <span class="resource-icon">🎮</span>
+      <div class="resource-info">
+        <strong>Live Editor</strong>
+        <span>mermaid.live</span>
+      </div>
+    </a>
+    <a class="resource-card" href="https://github.com/mermaid-js/mermaid/discussions" target="_blank">
+      <span class="resource-icon">💬</span>
+      <div class="resource-info">
+        <strong>Community</strong>
+        <span>GitHub Discussions</span>
+      </div>
+    </a>
+    <a class="resource-card" href="https://www.npmjs.com/package/mermaid" target="_blank">
+      <span class="resource-icon">📦</span>
+      <div class="resource-info">
+        <strong>npm Package</strong>
+        <span>npmjs.com/package/mermaid</span>
+      </div>
+    </a>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════════ -->
+<footer class="footer">
+  Made with ❤️ and <a href="https://mermaid.js.org/" target="_blank">Mermaid</a> 🧜 &nbsp;·&nbsp;
+  <a href="https://github.com/mermaid-js/mermaid" target="_blank">GitHub</a>
+</footer>
+
+<!-- ═══ SCRIPTS ════════════════════════════════════════════════ -->
+<script>
+/* ─── Diagram definitions ─────────────────────────────────── */
+const DIAGRAMS = {
+  flowchart: `flowchart TD
+    A([🚀 Start]) --> B{New Feature?}
+    B -- Yes --> C[Create Feature Branch]
+    B -- No --> D[Create Bugfix Branch]
+    C --> E[Write Code]
+    D --> E
+    E --> F[Write Tests]
+    F --> G{Tests Pass?}
+    G -- No --> E
+    G -- Yes --> H[Open Pull Request]
+    H --> I{Code Review}
+    I -- Changes Requested --> E
+    I -- Approved --> J[Merge to Main]
+    J --> K[Deploy to Staging]
+    K --> L{QA Approved?}
+    L -- No --> E
+    L -- Yes --> M([🎉 Deploy to Production])
+
+    style A fill:#4CAF50,color:#fff
+    style M fill:#4CAF50,color:#fff
+    style G fill:#FF9800,color:#fff
+    style I fill:#FF9800,color:#fff
+    style L fill:#FF9800,color:#fff`,
+
+  sequence: `sequenceDiagram
+    actor User
+    participant Browser
+    participant API as REST API
+    participant Auth as Auth Service
+    participant DB as Database
+
+    User->>Browser: Enter credentials
+    Browser->>API: POST /auth/login
+    API->>Auth: Validate credentials
+    Auth->>DB: Query user record
+    DB-->>Auth: Return user data
+    Auth-->>API: JWT token
+    API-->>Browser: 200 OK + token
+    Browser-->>User: Redirect to dashboard
+
+    Note over User,Browser: Session begins
+
+    User->>Browser: Request protected resource
+    Browser->>API: GET /resource (Bearer token)
+    API->>Auth: Verify token
+    Auth-->>API: Token valid ✓
+    API->>DB: Fetch resource
+    DB-->>API: Resource data
+    API-->>Browser: 200 OK + data
+    Browser-->>User: Display resource`,
+
+  gantt: `gantt
+    title Web Application Project Timeline
+    dateFormat  YYYY-MM-DD
+    excludes weekends
+
+    section Planning
+    Requirements gathering     :done,    req,  2024-01-01, 2024-01-10
+    Architecture design        :done,    arch, 2024-01-08, 2024-01-18
+    Tech stack selection       :done,    tech, 2024-01-15, 2024-01-19
+
+    section Development
+    Backend API                :active,  api,  2024-01-22, 30d
+    Database schema            :done,    db,   2024-01-22, 10d
+    Frontend components        :         fe,   2024-01-29, 25d
+    Authentication module      :         auth, 2024-02-05, 10d
+    Integration                :         int,  after fe,   7d
+
+    section Testing
+    Unit tests                 :         ut,   after api,  10d
+    Integration tests          :         it,   after int,  7d
+    Performance testing        :         pt,   after it,   5d
+    User acceptance testing    :         uat,  after pt,   7d
+
+    section Deployment
+    Staging deployment         :         stg,  after uat,  3d
+    Production deployment      :         prod, after stg,  2d
+    Post-launch monitoring     :         mon,  after prod, 14d`,
+
+  class: `classDiagram
+    class User {
+        +int id
+        +string name
+        +string email
+        +string passwordHash
+        +Date createdAt
+        +login(email, password) bool
+        +updateProfile(data) void
+        +getOrders() Order[]
+    }
+
+    class Product {
+        +int id
+        +string name
+        +string description
+        +float price
+        +int stockQty
+        +string category
+        +isAvailable() bool
+        +updateStock(qty) void
+    }
+
+    class Order {
+        +int id
+        +Date createdAt
+        +string status
+        +float totalAmount
+        +addItem(product, qty) void
+        +removeItem(productId) void
+        +calculateTotal() float
+        +submit() void
+    }
+
+    class OrderItem {
+        +int id
+        +int quantity
+        +float unitPrice
+        +getSubtotal() float
+    }
+
+    class Cart {
+        +int id
+        +addProduct(product) void
+        +removeProduct(productId) void
+        +checkout() Order
+        +clear() void
+    }
+
+    class Payment {
+        +int id
+        +float amount
+        +string method
+        +string status
+        +Date processedAt
+        +process() bool
+        +refund() bool
+    }
+
+    User "1" --> "1" Cart : has
+    User "1" --> "0..*" Order : places
+    Order "1" *-- "1..*" OrderItem : contains
+    OrderItem "0..*" --> "1" Product : references
+    Order "1" --> "1" Payment : paid via`,
+
+  state: `stateDiagram-v2
+    [*] --> Pending : Order Placed
+
+    Pending --> Processing : Payment Confirmed
+    Pending --> Cancelled : Customer Cancels
+
+    Processing --> Packed : Items Picked & Packed
+    Processing --> Cancelled : Out of Stock
+
+    Packed --> Shipped : Handed to Carrier
+    Packed --> Processing : Packaging Error
+
+    Shipped --> OutForDelivery : In Local Area
+    Shipped --> Delayed : Weather/Logistics Issue
+
+    Delayed --> OutForDelivery : Issue Resolved
+
+    OutForDelivery --> Delivered : Customer Receives
+    OutForDelivery --> FailedDelivery : No One Home
+
+    FailedDelivery --> OutForDelivery : Re-attempt
+    FailedDelivery --> Returned : Max Attempts Reached
+
+    Delivered --> Refunded : Return Requested
+    Returned --> Refunded : Return Processed
+
+    Cancelled --> [*]
+    Delivered --> [*]
+    Refunded --> [*]
+
+    note right of Shipped
+        Tracking number
+        emailed to customer
+    end note`,
+
+  er: `erDiagram
+    USER {
+        int id PK
+        string username UK
+        string email UK
+        string password_hash
+        string avatar_url
+        string bio
+        datetime created_at
+        datetime updated_at
+    }
+
+    POST {
+        int id PK
+        int author_id FK
+        int category_id FK
+        string title
+        string slug UK
+        text content
+        string status
+        datetime published_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    CATEGORY {
+        int id PK
+        string name UK
+        string slug UK
+        string description
+    }
+
+    TAG {
+        int id PK
+        string name UK
+        string slug UK
+    }
+
+    POST_TAG {
+        int post_id FK
+        int tag_id FK
+    }
+
+    COMMENT {
+        int id PK
+        int post_id FK
+        int author_id FK
+        int parent_id FK
+        text content
+        datetime created_at
+    }
+
+    LIKE {
+        int id PK
+        int user_id FK
+        int post_id FK
+        datetime created_at
+    }
+
+    USER ||--o{ POST : "authors"
+    USER ||--o{ COMMENT : "writes"
+    USER ||--o{ LIKE : "gives"
+    POST }o--|| CATEGORY : "belongs to"
+    POST ||--o{ POST_TAG : "tagged with"
+    TAG ||--o{ POST_TAG : "applied to"
+    POST ||--o{ COMMENT : "receives"
+    COMMENT }o--o{ COMMENT : "replies to"
+    POST ||--o{ LIKE : "receives"`,
+
+  journey: `journey
+    title New Customer Onboarding Journey
+    section Discovery
+      Find website via search: 3: User
+      Browse landing page: 4: User
+      Read testimonials: 4: User
+    section Sign Up
+      Click "Get Started": 5: User
+      Fill registration form: 2: User
+      Verify email: 3: User
+      Complete profile: 3: User, Support
+    section First Use
+      Watch tutorial video: 4: User
+      Create first project: 5: User
+      Invite team members: 4: User, Support
+    section Engagement
+      Use core features: 5: User
+      Explore integrations: 4: User
+      Contact support: 3: User, Support
+    section Retention
+      Upgrade to paid plan: 5: User
+      Refer a friend: 5: User`,
+
+  pie: `pie title Programming Languages Used
+    "TypeScript" : 42
+    "JavaScript" : 28
+    "Python" : 15
+    "Go" : 8
+    "Shell" : 5
+    "Other" : 2`,
+
+  quadrant: `quadrantChart
+    title Feature Prioritization Matrix
+    x-axis Low Effort --> High Effort
+    y-axis Low Impact --> High Impact
+    quadrant-1 Do First
+    quadrant-2 Plan
+    quadrant-3 Low Priority
+    quadrant-4 Delegate
+
+    Dark Mode: [0.2, 0.85]
+    API Rate Limiting: [0.35, 0.9]
+    OAuth Integration: [0.55, 0.88]
+    Bulk Export: [0.3, 0.6]
+    AI Suggestions: [0.75, 0.95]
+    Emoji Reactions: [0.15, 0.3]
+    Advanced Filters: [0.45, 0.7]
+    Real-time Collaboration: [0.8, 0.85]
+    Audit Logs: [0.4, 0.5]
+    Mobile App: [0.85, 0.75]
+    Keyboard Shortcuts: [0.2, 0.55]
+    Multi-language Support: [0.65, 0.6]`,
+
+  timeline: `timeline
+    title History of Mermaid.js
+    2014 : Knut Sveidqvist starts the project
+    2016 : v0.5 - First public release
+         : Flowcharts and sequence diagrams
+    2017 : v7.0 - Major stability improvements
+         : Gantt chart support added
+    2019 : v8.0 - Complete rewrite
+         : Class diagrams introduced
+    2020 : v8.5 - State diagrams
+         : ER diagrams added
+    2021 : v8.9 - Pie charts & User journeys
+         : GitHub native rendering support
+    2022 : v9.0 - Complete TypeScript rewrite
+         : Quadrant charts & Mindmaps
+    2023 : v10.0 - Architecture overhaul
+         : Block diagrams & XY charts
+    2024 : v11.0 - New themes and renderers
+         : Enhanced accessibility features`
+};
+
+/* ─── Theme toggle ────────────────────────────────────────── */
+const themeBtn = document.getElementById('themeToggle');
+let dark = true;
+themeBtn.addEventListener('click', () => {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? '' : 'light');
+  themeBtn.textContent = dark ? '🌙' : '☀️';
+  // Re-render with matching theme
+  renderAll(dark ? 'default' : 'default');
+});
+
+/* ─── Tab switching ───────────────────────────────────────── */
+function switchTab(btn, panelId) {
+  const card = btn.closest('.diagram-card');
+  card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  card.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+/* ─── Copy code ───────────────────────────────────────────── */
+function copyCode(btn, key) {
+  navigator.clipboard.writeText(DIAGRAMS[key]).then(() => {
+    btn.textContent = '✅ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+/* ─── Populate code panels with plain text ────────────────── */
+Object.keys(DIAGRAMS).forEach(key => {
+  const el = document.getElementById('raw-' + key);
+  if (el) el.textContent = DIAGRAMS[key];
+});
+
+/* ─── Render diagrams ─────────────────────────────────────── */
+let renderCount = 0;
+
+async function renderDiagram(key, theme) {
+  const panel = document.getElementById('preview-' + key);
+  const spinner = document.getElementById('spin-' + key);
+
+  // Show spinner
+  if (spinner) spinner.style.display = 'block';
+
+  try {
+    const id = 'mermaid-' + key + '-' + (++renderCount);
+    const { svg } = await window.mermaid.render(id, DIAGRAMS[key]);
+    panel.innerHTML = `<div class="mermaid-wrap">${svg}</div>`;
+  } catch (err) {
+    panel.innerHTML = `<div style="color:var(--pink);font-family:monospace;font-size:.8rem;padding:16px;">⚠️ Render error: ${err.message}</div>`;
+  }
+}
+
+async function renderAll(theme) {
+  window.mermaid.initialize({
+    startOnLoad: false,
+    theme: theme || 'default',
+    securityLevel: 'loose',
+    fontFamily: 'Inter, sans-serif',
+    gantt: { axisFormat: '%m/%d', titleTopMargin: 25 },
+  });
+
+  const keys = Object.keys(DIAGRAMS);
+  for (const key of keys) {
+    await renderDiagram(key, theme);
+  }
+}
+
+/* ─── Boot ────────────────────────────────────────────────── */
+// Wait for mermaid module to load
+function boot() {
+  if (!window.mermaid) {
+    setTimeout(boot, 100);
+    return;
+  }
+  renderAll('default');
+}
+boot();
+</script>
+</body>
+</html>
