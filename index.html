@@ -3,19 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🧜 My DueNorth Mermaid</title>
+  <title>🧜 My DueNorth Mermaid · Clocks &amp; Watches</title>
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: 'default',
-      securityLevel: 'loose',
-      fontFamily: 'Inter, sans-serif',
-    });
+    mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose', fontFamily: 'Inter, sans-serif' });
     window.mermaid = mermaid;
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ─── Reset & Variables ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,7 +20,6 @@
       --surface:      #161b22;
       --surface2:     #21262d;
       --border:       #30363d;
-      --border-light: #21262d;
       --text:         #e6edf3;
       --text-muted:   #8b949e;
       --text-dim:     #656d76;
@@ -35,19 +29,18 @@
       --green:        #3fb950;
       --yellow:       #d29922;
       --purple:       #bc8cff;
-      --teal:         #39d353;
+      --gold:         #d4a843;
+      --gold-glow:    rgba(212,168,67,.2);
       --radius:       12px;
       --radius-sm:    8px;
       --shadow:       0 8px 32px rgba(0,0,0,.6);
       --transition:   .2s ease;
     }
-
     [data-theme="light"] {
       --bg:           #f6f8fa;
       --surface:      #ffffff;
       --surface2:     #f0f3f6;
       --border:       #d0d7de;
-      --border-light: #e8ecf0;
       --text:         #1f2328;
       --text-muted:   #656d76;
       --text-dim:     #8c959f;
@@ -57,683 +50,644 @@
       --green:        #1a7f37;
       --yellow:       #9a6700;
       --purple:       #8250df;
+      --gold:         #a8862e;
+      --gold-glow:    rgba(168,134,46,.15);
       --shadow:       0 4px 16px rgba(0,0,0,.12);
     }
-
     html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; line-height: 1.6; min-height: 100vh; transition: background var(--transition), color var(--transition); }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-      transition: background var(--transition), color var(--transition);
-    }
-
-    /* ─── Top Nav ────────────────────────────────────────────── */
+    /* ─── Top Nav ─────────────────────────────────────────── */
     .topnav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(13,17,23,.85);
-      backdrop-filter: blur(16px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,.88); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      height: 60px;
-      gap: 16px;
+      padding: 0 24px; display: flex; align-items: center; height: 60px; gap: 12px;
     }
-    [data-theme="light"] .topnav {
-      background: rgba(246,248,250,.9);
-    }
-    .topnav-logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-    .topnav-logo span { color: var(--accent); }
+    [data-theme="light"] .topnav { background: rgba(246,248,250,.92); }
+    .topnav-logo { font-size: 1.15rem; font-weight: 700; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .topnav-logo .accent { color: var(--accent); }
+    .nav-divider { width: 1px; height: 24px; background: var(--border); }
+    .nav-links { display: flex; gap: 4px; }
+    .nav-link { background: none; border: none; color: var(--text-muted); font-size: .82rem; font-family: inherit; cursor: pointer; padding: 6px 10px; border-radius: var(--radius-sm); transition: all var(--transition); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+    .nav-link:hover, .nav-link.active { background: var(--surface2); color: var(--text); }
     .topnav-spacer { flex: 1; }
-    .theme-btn {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background var(--transition), transform .15s;
-    }
+    .theme-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 50%; width: 36px; height: 36px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--transition), transform .15s; }
     .theme-btn:hover { background: var(--border); transform: scale(1.08); }
 
-    /* ─── Hero ───────────────────────────────────────────────── */
+    /* ─── SECTION: MERMAID ───────────────────────────────── */
+    #section-mermaid { display: block; }
+    #section-watches { display: none; }
+
+    /* ─── Hero ────────────────────────────────────────────── */
     .hero {
-      text-align: center;
-      padding: 80px 24px 60px;
+      text-align: center; padding: 72px 24px 52px;
       background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(88,166,255,.12) 0%, transparent 70%);
     }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 4px 14px;
-      font-size: .78rem;
-      color: var(--text-muted);
-      letter-spacing: .04em;
-      margin-bottom: 20px;
-    }
-    .hero-badge .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity:1; transform: scale(1); }
-      50%       { opacity:.5; transform: scale(.8); }
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -.02em;
-      margin-bottom: 16px;
-    }
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 520px;
-      margin: 0 auto 32px;
-    }
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 40px;
-    }
-    .chip {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 5px 14px;
-      font-size: .8rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all var(--transition);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .chip:hover, .chip.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-glow);
-    }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px 14px; font-size: .78rem; color: var(--text-muted); letter-spacing: .04em; margin-bottom: 20px; }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+    .hero h1 { font-size: clamp(2rem,5vw,3.4rem); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 16px; }
+    .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 1.05rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 28px; }
+    .hero-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 32px; }
+    .chip { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 5px 14px; font-size: .8rem; color: var(--text-muted); cursor: pointer; transition: all var(--transition); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+    .chip:hover, .chip.active { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+    .chip.gold:hover, .chip.gold.active { border-color: var(--gold); color: var(--gold); background: var(--gold-glow); }
 
-    /* ─── Main Layout ────────────────────────────────────────── */
-    .main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
+    /* ─── Hero Clock ──────────────────────────────────────── */
+    .hero-clock-strip {
+      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+      margin: 0 auto 8px; max-width: 800px;
     }
+    .world-clock-mini {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 10px 18px; display: flex; flex-direction: column; align-items: center; gap: 2px;
+      min-width: 110px;
+    }
+    .wc-city { font-size: .7rem; color: var(--text-dim); letter-spacing: .06em; text-transform: uppercase; }
+    .wc-time { font-size: 1.25rem; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+    .wc-date { font-size: .68rem; color: var(--text-muted); }
 
-    /* ─── Section Header ─────────────────────────────────────── */
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 48px 0 20px;
-    }
-    .section-icon {
-      font-size: 1.6rem;
-      min-width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-    }
-    .section-info h2 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-    .section-info p {
-      font-size: .85rem;
-      color: var(--text-muted);
-    }
+    /* ─── Main Layout ─────────────────────────────────────── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
 
-    /* ─── Diagram Card ───────────────────────────────────────── */
-    .diagram-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-    .diagram-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent-glow), var(--shadow);
-    }
+    /* ─── Section Header ──────────────────────────────────── */
+    .section-header { display: flex; align-items: center; gap: 12px; margin: 48px 0 20px; }
+    .section-icon { font-size: 1.5rem; min-width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+    .section-info h2 { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
+    .section-info p { font-size: .83rem; color: var(--text-muted); }
 
-    /* ─── Tab Bar ────────────────────────────────────────────── */
-    .tab-bar {
-      display: flex;
-      align-items: center;
-      background: var(--surface2);
-      border-bottom: 1px solid var(--border);
-      padding: 0 16px;
-      gap: 4px;
-    }
-    .tab-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: .82rem;
-      font-family: inherit;
-      cursor: pointer;
-      padding: 10px 12px;
-      border-bottom: 2px solid transparent;
-      transition: color var(--transition), border-color var(--transition);
-    }
+    /* ─── Diagram Card ────────────────────────────────────── */
+    .diagram-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: border-color var(--transition), box-shadow var(--transition); }
+    .diagram-card:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-glow), var(--shadow); }
+    .diagram-card.gold-card:hover { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold-glow), var(--shadow); }
+
+    /* ─── Tab Bar ─────────────────────────────────────────── */
+    .tab-bar { display: flex; align-items: center; background: var(--surface2); border-bottom: 1px solid var(--border); padding: 0 16px; gap: 4px; }
+    .tab-btn { background: none; border: none; color: var(--text-muted); font-size: .82rem; font-family: inherit; cursor: pointer; padding: 10px 12px; border-bottom: 2px solid transparent; transition: color var(--transition), border-color var(--transition); }
     .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn.gold.active { color: var(--gold); border-bottom-color: var(--gold); }
     .tab-btn:hover:not(.active) { color: var(--text); }
     .tab-spacer { flex: 1; }
-    .copy-btn {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      color: var(--text-muted);
-      font-size: .75rem;
-      font-family: inherit;
-      cursor: pointer;
-      padding: 4px 10px;
-      display: flex; align-items: center; gap: 5px;
-      transition: all var(--transition);
-    }
+    .copy-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-muted); font-size: .75rem; font-family: inherit; cursor: pointer; padding: 4px 10px; display: flex; align-items: center; gap: 5px; transition: all var(--transition); }
     .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
     .copy-btn.copied { border-color: var(--green); color: var(--green); }
 
-    /* ─── Panels ─────────────────────────────────────────────── */
+    /* ─── Panels ──────────────────────────────────────────── */
     .panel { display: none; }
     .panel.active { display: block; }
-
-    /* ─── Preview Panel ──────────────────────────────────────── */
-    .preview-panel {
-      padding: 32px 24px;
-      min-height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--surface);
-    }
-    .preview-panel .mermaid-wrap {
-      width: 100%;
-      overflow-x: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .preview-panel svg {
-      max-width: 100%;
-      height: auto;
-    }
-    .preview-panel .mermaid { width: 100%; text-align: center; }
-
-    /* ─── Code Panel ─────────────────────────────────────────── */
-    .code-panel {
-      background: #010409;
-      overflow: auto;
-      max-height: 520px;
-    }
+    .preview-panel { padding: 32px 24px; min-height: 200px; display: flex; align-items: center; justify-content: center; background: var(--surface); }
+    .preview-panel .mermaid-wrap { width: 100%; overflow-x: auto; display: flex; align-items: center; justify-content: center; }
+    .preview-panel svg { max-width: 100%; height: auto; }
+    .code-panel { background: #010409; overflow: auto; max-height: 520px; }
     [data-theme="light"] .code-panel { background: #f0f3f6; }
-    .code-panel pre {
-      padding: 24px;
-      margin: 0;
-      font-family: 'Fira Code', 'Cascadia Code', monospace;
-      font-size: .82rem;
-      line-height: 1.7;
-      color: #c9d1d9;
-      white-space: pre;
-      tab-size: 2;
-    }
+    .code-panel pre { padding: 24px; margin: 0; font-family: 'Fira Code', monospace; font-size: .82rem; line-height: 1.7; color: #c9d1d9; white-space: pre; tab-size: 2; }
     [data-theme="light"] .code-panel pre { color: #1f2328; }
 
-    /* Syntax highlight classes */
-    .kw  { color: #ff7b72; }           /* keywords */
-    .str { color: #a5d6ff; }           /* strings / labels */
-    .cmt { color: #8b949e; font-style: italic; }  /* comments */
-    .nm  { color: #79c0ff; }           /* names / IDs */
-    .op  { color: #ffa657; }           /* operators / arrows */
-    [data-theme="light"] .kw  { color: #cf222e; }
-    [data-theme="light"] .str { color: #0550ae; }
-    [data-theme="light"] .cmt { color: #6e7781; }
-    [data-theme="light"] .nm  { color: #0969da; }
-    [data-theme="light"] .op  { color: #953800; }
-
-    /* ─── Stats Bar ──────────────────────────────────────────── */
-    .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2px;
-      margin: 48px 0 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .stat-item {
-      flex: 1;
-      min-width: 120px;
-      padding: 20px 24px;
-      text-align: center;
-      border-right: 1px solid var(--border);
-    }
+    /* ─── Stats Bar ───────────────────────────────────────── */
+    .stats { display: flex; flex-wrap: wrap; gap: 2px; margin: 48px 0 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .stat-item { flex: 1; min-width: 120px; padding: 20px 24px; text-align: center; border-right: 1px solid var(--border); }
     .stat-item:last-child { border-right: none; }
-    .stat-value {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--accent);
-      display: block;
-      line-height: 1.1;
-    }
-    .stat-label {
-      font-size: .78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
+    .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--accent); display: block; line-height: 1.1; }
+    .stat-value.gold { color: var(--gold); }
+    .stat-label { font-size: .78rem; color: var(--text-muted); margin-top: 4px; }
 
-    /* ─── Resources ──────────────────────────────────────────── */
-    .resources {
-      margin-top: 48px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-    }
-    .resource-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all var(--transition);
-    }
-    .resource-card:hover {
-      border-color: var(--accent);
-      background: var(--accent-glow);
-      transform: translateY(-2px);
-    }
+    /* ─── Resources ───────────────────────────────────────── */
+    .resources { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .resource-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 12px; transition: all var(--transition); }
+    .resource-card:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateY(-2px); }
     .resource-icon { font-size: 1.4rem; }
     .resource-info strong { display: block; font-size: .9rem; }
     .resource-info span { font-size: .78rem; color: var(--text-muted); }
 
-    /* ─── Footer ─────────────────────────────────────────────── */
-    .footer {
-      text-align: center;
-      padding: 32px 24px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: .85rem;
+    /* ═══════════════════════════════════════════════════════
+       WATCHES & CLOCKS SECTION
+    ═══════════════════════════════════════════════════════ */
+
+    /* ─── Watches Hero ────────────────────────────────────── */
+    .watches-hero {
+      text-align: center; padding: 72px 24px 48px;
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(212,168,67,.1) 0%, transparent 70%);
     }
+    .watches-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,3.2rem); font-weight: 700; margin-bottom: 12px; letter-spacing: -.01em; }
+    .watches-hero h1 em { font-style: italic; color: var(--gold); }
+    .watches-hero p { color: var(--text-muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto 32px; }
+
+    /* ─── Analog Clock ────────────────────────────────────── */
+    .clock-stage {
+      display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+      margin-bottom: 48px; align-items: flex-start;
+    }
+    .analog-clock-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .analog-clock-wrap h3 { font-size: .8rem; color: var(--text-dim); letter-spacing: .08em; text-transform: uppercase; }
+    .analog-clock {
+      position: relative; width: 180px; height: 180px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 6px var(--surface2), 0 0 0 7px var(--border), 0 12px 40px rgba(0,0,0,.5);
+    }
+    .clock-face { position: absolute; inset: 0; }
+    .clock-number { position: absolute; font-size: .65rem; font-weight: 600; color: var(--text-muted); transform-origin: 50% 50%; }
+    .clock-center { position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; transform: translate(-50%,-50%); z-index: 10; }
+    .hand { position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; border-radius: 4px; }
+    .hour-hand   { width: 4px; height: 50px; background: var(--text); margin-left: -2px; }
+    .minute-hand { width: 3px; height: 66px; background: var(--text-muted); margin-left: -1.5px; }
+    .second-hand { width: 2px; height: 72px; background: var(--gold); margin-left: -1px; }
+    .digital-readout {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 10px 20px; text-align: center;
+    }
+    .digital-readout .time-big { font-size: 2.2rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--gold); }
+    .digital-readout .date-str { font-size: .78rem; color: var(--text-muted); margin-top: 2px; }
+    .digital-readout .tz-str  { font-size: .68rem; color: var(--text-dim); }
+
+    /* ─── World Clocks Full ───────────────────────────────── */
+    .world-clocks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .world-clock-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px; display: flex; flex-direction: column; gap: 4px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .world-clock-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .wcc-city { font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; color: var(--text-dim); }
+    .wcc-time { font-size: 1.7rem; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+    .wcc-extra { font-size: .72rem; color: var(--text-muted); }
+    .wcc-bar { height: 3px; background: var(--surface2); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+    .wcc-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); border-radius: 2px; transition: width 1s linear; }
+
+    /* ─── Policy Cards ────────────────────────────────────── */
+    .policy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .policy-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; transition: all var(--transition);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .policy-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 4px 20px var(--gold-glow); }
+    .policy-card-icon { font-size: 1.8rem; margin-bottom: 4px; }
+    .policy-card h3 { font-size: 1rem; font-weight: 700; }
+    .policy-card p { font-size: .83rem; color: var(--text-muted); line-height: 1.5; }
+    .policy-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--gold-glow); border: 1px solid var(--gold); border-radius: 999px; padding: 2px 10px; font-size: .7rem; color: var(--gold); font-weight: 600; width: fit-content; margin-top: 4px; }
+
+    /* ─── Watch Collections ───────────────────────────────── */
+    .watch-collection { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .watch-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; display: flex; flex-direction: column; gap: 10px;
+      transition: all var(--transition); cursor: pointer;
+    }
+    .watch-card:hover { border-color: var(--gold); box-shadow: 0 6px 24px var(--gold-glow); transform: translateY(-3px); }
+    .watch-emoji { font-size: 3rem; text-align: center; padding: 8px 0; filter: drop-shadow(0 4px 8px rgba(0,0,0,.3)); }
+    .watch-brand { font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); font-weight: 600; }
+    .watch-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
+    .watch-price { font-size: .9rem; font-weight: 700; color: var(--text-muted); }
+    .watch-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+    .watch-badge { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 7px; font-size: .68rem; color: var(--text-muted); }
+    .watch-badge.gold { background: var(--gold-glow); border-color: var(--gold); color: var(--gold); }
+
+    /* ─── Policy Detail Modal ─────────────────────────────── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; display: none; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(4px); }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px 0; }
+    .modal-header h3 { font-size: 1.1rem; font-weight: 700; }
+    .modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; cursor: pointer; line-height: 1; }
+    .modal-body { padding: 16px 24px 24px; }
+    .modal-body p { color: var(--text-muted); font-size: .9rem; line-height: 1.7; margin-bottom: 12px; }
+    .policy-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .policy-list li { display: flex; align-items: flex-start; gap: 10px; font-size: .88rem; }
+    .policy-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    .footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: .85rem; }
     .footer a { color: var(--accent); text-decoration: none; }
     .footer a:hover { text-decoration: underline; }
 
-    /* ─── Scrollbar ──────────────────────────────────────────── */
+    /* ─── Misc ────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ─── Responsive ─────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .hero { padding: 48px 16px 40px; }
+      .hero { padding: 48px 16px 36px; }
+      .watches-hero { padding: 48px 16px 32px; }
       .main { padding: 0 16px 60px; }
       .stats { flex-direction: column; gap: 0; }
       .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
       .stat-item:last-child { border-bottom: none; }
+      .nav-links { display: none; }
+      .clock-stage { gap: 24px; }
     }
 
-    /* ─── Loading spinner ────────────────────────────────────── */
-    .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
+    /* section divider accent */
+    .section-divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 56px 0 32px; color: var(--text-dim); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background: var(--border); }
   </style>
 </head>
 <body>
 
-<!-- ═══ TOP NAV ════════════════════════════════════════════════ -->
+<!-- ═══ TOP NAV ════════════════════════════════════════════ -->
 <nav class="topnav">
-  <a class="topnav-logo" href="#">🧜 <span>DueNorth</span> Mermaid</a>
+  <a class="topnav-logo" href="#"><span class="accent">🧜</span> DueNorth Mermaid</a>
+  <div class="nav-divider"></div>
+  <div class="nav-links">
+    <button class="nav-link active" id="btn-mermaid" onclick="showSection('mermaid')">📊 Diagrams</button>
+    <button class="nav-link" id="btn-watches" onclick="showSection('watches')">⌚ Clocks &amp; Watches</button>
+  </div>
   <div class="topnav-spacer"></div>
   <button class="theme-btn" id="themeToggle" title="Toggle theme">🌙</button>
 </nav>
 
-<!-- ═══ HERO ═══════════════════════════════════════════════════ -->
-<header class="hero">
-  <div class="hero-badge"><span class="dot"></span> Powered by Mermaid v11.4.1</div>
-  <h1>Making Mermaid<br/><em>Awesome</em></h1>
-  <p>A comprehensive showcase of 10 Mermaid diagram types — from simple flowcharts to complex ER diagrams.</p>
-  <div class="hero-chips">
-    <a class="chip" href="#flowchart">🔷 Flowchart</a>
-    <a class="chip" href="#sequence">🔁 Sequence</a>
-    <a class="chip" href="#gantt">📅 Gantt</a>
-    <a class="chip" href="#class">🏛️ Class</a>
-    <a class="chip" href="#state">🔄 State</a>
-    <a class="chip" href="#er">🗄️ ER Diagram</a>
-    <a class="chip" href="#journey">🧭 Journey</a>
-    <a class="chip" href="#pie">🥧 Pie</a>
-    <a class="chip" href="#quadrant">📊 Quadrant</a>
-    <a class="chip" href="#timeline">📆 Timeline</a>
-  </div>
-</header>
+<!-- ══════════════════════════════════════════════════════════
+     SECTION: MERMAID DIAGRAMS
+════════════════════════════════════════════════════════════ -->
+<div id="section-mermaid">
 
-<!-- ═══ MAIN ════════════════════════════════════════════════════ -->
-<main class="main">
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge"><span class="dot"></span> Powered by Mermaid v11.4.1</div>
+    <h1>Making Mermaid<br/><em>Awesome</em></h1>
+    <p>A comprehensive showcase of 10 Mermaid diagram types — from simple flowcharts to complex ER diagrams.</p>
+    <div class="hero-chips">
+      <a class="chip" href="#flowchart">🔷 Flowchart</a>
+      <a class="chip" href="#sequence">🔁 Sequence</a>
+      <a class="chip" href="#gantt">📅 Gantt</a>
+      <a class="chip" href="#class">🏛️ Class</a>
+      <a class="chip" href="#state">🔄 State</a>
+      <a class="chip" href="#er">🗄️ ER Diagram</a>
+      <a class="chip" href="#journey">🧭 Journey</a>
+      <a class="chip" href="#pie">🥧 Pie</a>
+      <a class="chip" href="#quadrant">📊 Quadrant</a>
+      <a class="chip" href="#timeline">📆 Timeline</a>
+      <button class="chip gold" onclick="showSection('watches')">⌚ Clocks &amp; Watches →</button>
+    </div>
+    <!-- Live mini clocks in hero -->
+    <div class="hero-clock-strip" id="heroClocks"></div>
+  </header>
 
-  <!-- FLOWCHART ──────────────────────────────────────────────── -->
-  <div class="section-header" id="flowchart">
-    <div class="section-icon">🔷</div>
-    <div class="section-info">
-      <h2>Flowchart</h2>
-      <p>Software development workflow with branching decision nodes</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-flowchart')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-flowchart')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'flowchart')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-flowchart">
-      <div class="spinner" id="spin-flowchart"></div>
-    </div>
-    <div class="panel code-panel" id="code-flowchart"><pre id="raw-flowchart"></pre></div>
-  </div>
+  <main class="main">
 
-  <!-- SEQUENCE ───────────────────────────────────────────────── -->
-  <div class="section-header" id="sequence">
-    <div class="section-icon">🔁</div>
-    <div class="section-info">
-      <h2>Sequence Diagram</h2>
-      <p>User authentication flow across browser, API and database</p>
+    <!-- FLOWCHART -->
+    <div class="section-header" id="flowchart">
+      <div class="section-icon">🔷</div>
+      <div class="section-info"><h2>Flowchart</h2><p>Software development workflow with branching decision nodes</p></div>
     </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-sequence')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-sequence')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'sequence')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-sequence">
-      <div class="spinner" id="spin-sequence"></div>
-    </div>
-    <div class="panel code-panel" id="code-sequence"><pre id="raw-sequence"></pre></div>
-  </div>
-
-  <!-- GANTT ──────────────────────────────────────────────────── -->
-  <div class="section-header" id="gantt">
-    <div class="section-icon">📅</div>
-    <div class="section-info">
-      <h2>Gantt Chart</h2>
-      <p>Web application project timeline across planning, dev, testing and deployment</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-gantt')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-gantt')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'gantt')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-gantt">
-      <div class="spinner" id="spin-gantt"></div>
-    </div>
-    <div class="panel code-panel" id="code-gantt"><pre id="raw-gantt"></pre></div>
-  </div>
-
-  <!-- CLASS ──────────────────────────────────────────────────── -->
-  <div class="section-header" id="class">
-    <div class="section-icon">🏛️</div>
-    <div class="section-info">
-      <h2>Class Diagram</h2>
-      <p>E-commerce domain model with Users, Orders, Products and Payments</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-class')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-class')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'class')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-class">
-      <div class="spinner" id="spin-class"></div>
-    </div>
-    <div class="panel code-panel" id="code-class"><pre id="raw-class"></pre></div>
-  </div>
-
-  <!-- STATE ──────────────────────────────────────────────────── -->
-  <div class="section-header" id="state">
-    <div class="section-icon">🔄</div>
-    <div class="section-info">
-      <h2>State Diagram</h2>
-      <p>Order lifecycle from placement to delivery and refunds</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-state')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-state')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'state')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-state">
-      <div class="spinner" id="spin-state"></div>
-    </div>
-    <div class="panel code-panel" id="code-state"><pre id="raw-state"></pre></div>
-  </div>
-
-  <!-- ER ─────────────────────────────────────────────────────── -->
-  <div class="section-header" id="er">
-    <div class="section-icon">🗄️</div>
-    <div class="section-info">
-      <h2>Entity Relationship Diagram</h2>
-      <p>Blog platform database schema with users, posts, tags and comments</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-er')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-er')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'er')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-er">
-      <div class="spinner" id="spin-er"></div>
-    </div>
-    <div class="panel code-panel" id="code-er"><pre id="raw-er"></pre></div>
-  </div>
-
-  <!-- JOURNEY ────────────────────────────────────────────────── -->
-  <div class="section-header" id="journey">
-    <div class="section-icon">🧭</div>
-    <div class="section-info">
-      <h2>User Journey</h2>
-      <p>New customer onboarding from discovery to retention</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-journey')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-journey')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'journey')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-journey">
-      <div class="spinner" id="spin-journey"></div>
-    </div>
-    <div class="panel code-panel" id="code-journey"><pre id="raw-journey"></pre></div>
-  </div>
-
-  <!-- PIE ────────────────────────────────────────────────────── -->
-  <div class="section-header" id="pie">
-    <div class="section-icon">🥧</div>
-    <div class="section-info">
-      <h2>Pie Chart</h2>
-      <p>Distribution of programming languages used in the project</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-pie')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-pie')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'pie')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-pie">
-      <div class="spinner" id="spin-pie"></div>
-    </div>
-    <div class="panel code-panel" id="code-pie"><pre id="raw-pie"></pre></div>
-  </div>
-
-  <!-- QUADRANT ───────────────────────────────────────────────── -->
-  <div class="section-header" id="quadrant">
-    <div class="section-icon">📊</div>
-    <div class="section-info">
-      <h2>Quadrant Chart</h2>
-      <p>Feature prioritization matrix by effort vs. impact</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-quadrant')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-quadrant')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'quadrant')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-quadrant">
-      <div class="spinner" id="spin-quadrant"></div>
-    </div>
-    <div class="panel code-panel" id="code-quadrant"><pre id="raw-quadrant"></pre></div>
-  </div>
-
-  <!-- TIMELINE ───────────────────────────────────────────────── -->
-  <div class="section-header" id="timeline">
-    <div class="section-icon">📆</div>
-    <div class="section-info">
-      <h2>Timeline</h2>
-      <p>Key milestones in Mermaid.js history from 2014 to 2024</p>
-    </div>
-  </div>
-  <div class="diagram-card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this,'preview-timeline')">👁 Preview</button>
-      <button class="tab-btn" onclick="switchTab(this,'code-timeline')">💻 Code</button>
-      <div class="tab-spacer"></div>
-      <button class="copy-btn" onclick="copyCode(this,'timeline')">📋 Copy</button>
-    </div>
-    <div class="panel active preview-panel" id="preview-timeline">
-      <div class="spinner" id="spin-timeline"></div>
-    </div>
-    <div class="panel code-panel" id="code-timeline"><pre id="raw-timeline"></pre></div>
-  </div>
-
-  <!-- STATS ──────────────────────────────────────────────────── -->
-  <div class="stats">
-    <div class="stat-item">
-      <span class="stat-value">10</span>
-      <div class="stat-label">Diagram Types</div>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">v11</span>
-      <div class="stat-label">Mermaid Version</div>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">100%</span>
-      <div class="stat-label">Client-Side Render</div>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">0</span>
-      <div class="stat-label">Dependencies (server)</div>
-    </div>
-  </div>
-
-  <!-- RESOURCES ──────────────────────────────────────────────── -->
-  <div class="resources">
-    <a class="resource-card" href="https://mermaid.js.org/" target="_blank">
-      <span class="resource-icon">📖</span>
-      <div class="resource-info">
-        <strong>Official Docs</strong>
-        <span>mermaid.js.org</span>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-flowchart')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-flowchart')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'flowchart')">📋 Copy</button>
       </div>
-    </a>
-    <a class="resource-card" href="https://mermaid.live/" target="_blank">
-      <span class="resource-icon">🎮</span>
-      <div class="resource-info">
-        <strong>Live Editor</strong>
-        <span>mermaid.live</span>
+      <div class="panel active preview-panel" id="preview-flowchart"><div class="spinner" id="spin-flowchart"></div></div>
+      <div class="panel code-panel" id="code-flowchart"><pre id="raw-flowchart"></pre></div>
+    </div>
+
+    <!-- SEQUENCE -->
+    <div class="section-header" id="sequence">
+      <div class="section-icon">🔁</div>
+      <div class="section-info"><h2>Sequence Diagram</h2><p>User authentication flow across browser, API and database</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-sequence')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-sequence')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'sequence')">📋 Copy</button>
       </div>
-    </a>
-    <a class="resource-card" href="https://github.com/mermaid-js/mermaid/discussions" target="_blank">
-      <span class="resource-icon">💬</span>
-      <div class="resource-info">
-        <strong>Community</strong>
-        <span>GitHub Discussions</span>
+      <div class="panel active preview-panel" id="preview-sequence"><div class="spinner" id="spin-sequence"></div></div>
+      <div class="panel code-panel" id="code-sequence"><pre id="raw-sequence"></pre></div>
+    </div>
+
+    <!-- GANTT -->
+    <div class="section-header" id="gantt">
+      <div class="section-icon">📅</div>
+      <div class="section-info"><h2>Gantt Chart</h2><p>Web application project timeline across planning, dev, testing and deployment</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-gantt')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-gantt')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'gantt')">📋 Copy</button>
       </div>
-    </a>
-    <a class="resource-card" href="https://www.npmjs.com/package/mermaid" target="_blank">
-      <span class="resource-icon">📦</span>
-      <div class="resource-info">
-        <strong>npm Package</strong>
-        <span>npmjs.com/package/mermaid</span>
+      <div class="panel active preview-panel" id="preview-gantt"><div class="spinner" id="spin-gantt"></div></div>
+      <div class="panel code-panel" id="code-gantt"><pre id="raw-gantt"></pre></div>
+    </div>
+
+    <!-- CLASS -->
+    <div class="section-header" id="class">
+      <div class="section-icon">🏛️</div>
+      <div class="section-info"><h2>Class Diagram</h2><p>E-commerce domain model with Users, Orders, Products and Payments</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-class')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-class')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'class')">📋 Copy</button>
       </div>
-    </a>
+      <div class="panel active preview-panel" id="preview-class"><div class="spinner" id="spin-class"></div></div>
+      <div class="panel code-panel" id="code-class"><pre id="raw-class"></pre></div>
+    </div>
+
+    <!-- STATE -->
+    <div class="section-header" id="state">
+      <div class="section-icon">🔄</div>
+      <div class="section-info"><h2>State Diagram</h2><p>Order lifecycle from placement to delivery and refunds</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-state')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-state')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'state')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-state"><div class="spinner" id="spin-state"></div></div>
+      <div class="panel code-panel" id="code-state"><pre id="raw-state"></pre></div>
+    </div>
+
+    <!-- ER -->
+    <div class="section-header" id="er">
+      <div class="section-icon">🗄️</div>
+      <div class="section-info"><h2>Entity Relationship Diagram</h2><p>Blog platform database schema with users, posts, tags and comments</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-er')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-er')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'er')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-er"><div class="spinner" id="spin-er"></div></div>
+      <div class="panel code-panel" id="code-er"><pre id="raw-er"></pre></div>
+    </div>
+
+    <!-- JOURNEY -->
+    <div class="section-header" id="journey">
+      <div class="section-icon">🧭</div>
+      <div class="section-info"><h2>User Journey</h2><p>New customer onboarding from discovery to retention</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-journey')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-journey')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'journey')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-journey"><div class="spinner" id="spin-journey"></div></div>
+      <div class="panel code-panel" id="code-journey"><pre id="raw-journey"></pre></div>
+    </div>
+
+    <!-- PIE -->
+    <div class="section-header" id="pie">
+      <div class="section-icon">🥧</div>
+      <div class="section-info"><h2>Pie Chart</h2><p>Distribution of programming languages used in the project</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-pie')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-pie')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'pie')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-pie"><div class="spinner" id="spin-pie"></div></div>
+      <div class="panel code-panel" id="code-pie"><pre id="raw-pie"></pre></div>
+    </div>
+
+    <!-- QUADRANT -->
+    <div class="section-header" id="quadrant">
+      <div class="section-icon">📊</div>
+      <div class="section-info"><h2>Quadrant Chart</h2><p>Feature prioritization matrix by effort vs. impact</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-quadrant')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-quadrant')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'quadrant')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-quadrant"><div class="spinner" id="spin-quadrant"></div></div>
+      <div class="panel code-panel" id="code-quadrant"><pre id="raw-quadrant"></pre></div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="section-header" id="timeline">
+      <div class="section-icon">📆</div>
+      <div class="section-info"><h2>Timeline</h2><p>Key milestones in Mermaid.js history from 2014 to 2024</p></div>
+    </div>
+    <div class="diagram-card">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab(this,'preview-timeline')">👁 Preview</button>
+        <button class="tab-btn" onclick="switchTab(this,'code-timeline')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'timeline')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-timeline"><div class="spinner" id="spin-timeline"></div></div>
+      <div class="panel code-panel" id="code-timeline"><pre id="raw-timeline"></pre></div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-item"><span class="stat-value">10</span><div class="stat-label">Diagram Types</div></div>
+      <div class="stat-item"><span class="stat-value">v11</span><div class="stat-label">Mermaid Version</div></div>
+      <div class="stat-item"><span class="stat-value">100%</span><div class="stat-label">Client-Side Render</div></div>
+      <div class="stat-item"><span class="stat-value">0</span><div class="stat-label">Server Dependencies</div></div>
+    </div>
+
+    <!-- RESOURCES -->
+    <div class="resources">
+      <a class="resource-card" href="https://mermaid.js.org/" target="_blank"><span class="resource-icon">📖</span><div class="resource-info"><strong>Official Docs</strong><span>mermaid.js.org</span></div></a>
+      <a class="resource-card" href="https://mermaid.live/" target="_blank"><span class="resource-icon">🎮</span><div class="resource-info"><strong>Live Editor</strong><span>mermaid.live</span></div></a>
+      <a class="resource-card" href="https://github.com/mermaid-js/mermaid/discussions" target="_blank"><span class="resource-icon">💬</span><div class="resource-info"><strong>Community</strong><span>GitHub Discussions</span></div></a>
+      <a class="resource-card" href="https://www.npmjs.com/package/mermaid" target="_blank"><span class="resource-icon">📦</span><div class="resource-info"><strong>npm Package</strong><span>npmjs.com/package/mermaid</span></div></a>
+    </div>
+
+  </main>
+</div><!-- /section-mermaid -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION: CLOCKS & WATCHES POLICY
+════════════════════════════════════════════════════════════ -->
+<div id="section-watches">
+
+  <!-- WATCHES HERO -->
+  <header class="watches-hero">
+    <div class="hero-badge" style="border-color:var(--gold);color:var(--gold)">⌚ Horological Policy Center</div>
+    <h1>Clocks &amp; Watches<br/><em>Policy Guide</em></h1>
+    <p>Complete policies for timepiece warranties, service, returns, and authentication — visualized with Mermaid diagrams.</p>
+    <div class="hero-chips">
+      <a class="chip gold" href="#wc-worldclocks">🌍 World Clocks</a>
+      <a class="chip gold" href="#wc-warranty">🛡️ Warranty Flow</a>
+      <a class="chip gold" href="#wc-service">🔧 Service Process</a>
+      <a class="chip gold" href="#wc-return">↩️ Return Policy</a>
+      <a class="chip gold" href="#wc-brands">🏷️ Brand Taxonomy</a>
+      <a class="chip gold" href="#wc-collection">⌚ Collection</a>
+      <a class="chip gold" href="#wc-policies">📋 Policy Cards</a>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ── LIVE CLOCKS ───────────────────────────────────── -->
+    <div class="section-divider" id="wc-worldclocks">🌍 Live World Clocks</div>
+
+    <!-- Analog clock + digital readout -->
+    <div class="clock-stage">
+      <div class="analog-clock-wrap">
+        <h3>Local Time</h3>
+        <div class="analog-clock" id="analogClock">
+          <canvas class="clock-face" id="clockCanvas" width="174" height="174"></canvas>
+          <div class="clock-center"></div>
+          <div class="hand hour-hand"   id="hourHand"></div>
+          <div class="hand minute-hand" id="minuteHand"></div>
+          <div class="hand second-hand" id="secondHand"></div>
+        </div>
+        <div class="digital-readout">
+          <div class="time-big" id="localTimeBig">--:--:--</div>
+          <div class="date-str" id="localDateStr">---</div>
+          <div class="tz-str"   id="localTzStr">---</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- World clock grid -->
+    <div class="world-clocks-grid" id="worldClocksGrid"></div>
+
+    <!-- ── MERMAID: WARRANTY FLOW ────────────────────────── -->
+    <div class="section-divider" id="wc-warranty">🛡️ Warranty Policy — Mermaid Diagram</div>
+    <div class="section-header" style="margin-top:0">
+      <div class="section-icon">🛡️</div>
+      <div class="section-info"><h2>Warranty Claim Flow</h2><p>Step-by-step process from purchase to resolution for timepiece warranty claims</p></div>
+    </div>
+    <div class="diagram-card gold-card">
+      <div class="tab-bar">
+        <button class="tab-btn gold active" onclick="switchTab(this,'preview-warranty')">👁 Preview</button>
+        <button class="tab-btn gold" onclick="switchTab(this,'code-warranty')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'warranty')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-warranty"><div class="spinner" id="spin-warranty"></div></div>
+      <div class="panel code-panel" id="code-warranty"><pre id="raw-warranty"></pre></div>
+    </div>
+
+    <!-- ── MERMAID: SERVICE SEQUENCE ────────────────────── -->
+    <div class="section-divider" id="wc-service">🔧 Service & Repair — Mermaid Diagram</div>
+    <div class="section-header" style="margin-top:0">
+      <div class="section-icon">🔧</div>
+      <div class="section-info"><h2>Watchmaker Service Sequence</h2><p>Complete service workflow from intake to collection</p></div>
+    </div>
+    <div class="diagram-card gold-card">
+      <div class="tab-bar">
+        <button class="tab-btn gold active" onclick="switchTab(this,'preview-service')">👁 Preview</button>
+        <button class="tab-btn gold" onclick="switchTab(this,'code-service')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'service')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-service"><div class="spinner" id="spin-service"></div></div>
+      <div class="panel code-panel" id="code-service"><pre id="raw-service"></pre></div>
+    </div>
+
+    <!-- ── MERMAID: RETURN STATE MACHINE ────────────────── -->
+    <div class="section-divider" id="wc-return">↩️ Return Policy — Mermaid Diagram</div>
+    <div class="section-header" style="margin-top:0">
+      <div class="section-icon">↩️</div>
+      <div class="section-info"><h2>Return &amp; Refund State Machine</h2><p>All possible states for a watch return from request to resolution</p></div>
+    </div>
+    <div class="diagram-card gold-card">
+      <div class="tab-bar">
+        <button class="tab-btn gold active" onclick="switchTab(this,'preview-return')">👁 Preview</button>
+        <button class="tab-btn gold" onclick="switchTab(this,'code-return')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'return')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-return"><div class="spinner" id="spin-return"></div></div>
+      <div class="panel code-panel" id="code-return"><pre id="raw-return"></pre></div>
+    </div>
+
+    <!-- ── MERMAID: BRAND TAXONOMY ───────────────────────── -->
+    <div class="section-divider" id="wc-brands">🏷️ Brand Classification — Mermaid Diagram</div>
+    <div class="section-header" style="margin-top:0">
+      <div class="section-icon">🏷️</div>
+      <div class="section-info"><h2>Watch Brand Taxonomy</h2><p>Hierarchy of watch brands by tier, movement type, and price segment</p></div>
+    </div>
+    <div class="diagram-card gold-card">
+      <div class="tab-bar">
+        <button class="tab-btn gold active" onclick="switchTab(this,'preview-brands')">👁 Preview</button>
+        <button class="tab-btn gold" onclick="switchTab(this,'code-brands')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'brands')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-brands"><div class="spinner" id="spin-brands"></div></div>
+      <div class="panel code-panel" id="code-brands"><pre id="raw-brands"></pre></div>
+    </div>
+
+    <!-- ── MERMAID: SERVICE GANTT ────────────────────────── -->
+    <div class="section-divider">📅 Service Gantt — Mermaid Diagram</div>
+    <div class="section-header" style="margin-top:0">
+      <div class="section-icon">📅</div>
+      <div class="section-info"><h2>Watch Service Timeline</h2><p>Typical gantt timeline for a full movement service &amp; overhaul</p></div>
+    </div>
+    <div class="diagram-card gold-card">
+      <div class="tab-bar">
+        <button class="tab-btn gold active" onclick="switchTab(this,'preview-svcgantt')">👁 Preview</button>
+        <button class="tab-btn gold" onclick="switchTab(this,'code-svcgantt')">💻 Code</button>
+        <div class="tab-spacer"></div>
+        <button class="copy-btn" onclick="copyCode(this,'svcgantt')">📋 Copy</button>
+      </div>
+      <div class="panel active preview-panel" id="preview-svcgantt"><div class="spinner" id="spin-svcgantt"></div></div>
+      <div class="panel code-panel" id="code-svcgantt"><pre id="raw-svcgantt"></pre></div>
+    </div>
+
+    <!-- ── WATCH COLLECTION ──────────────────────────────── -->
+    <div class="section-divider" id="wc-collection">⌚ Featured Collection</div>
+    <div class="watch-collection" id="watchCollection"></div>
+
+    <!-- ── POLICY CARDS ──────────────────────────────────── -->
+    <div class="section-divider" id="wc-policies">📋 Policy Quick Reference</div>
+    <div class="policy-grid" id="policyGrid"></div>
+
+    <!-- STATS -->
+    <div class="stats" style="margin-top:40px">
+      <div class="stat-item"><span class="stat-value gold">5</span><div class="stat-label">Policy Diagrams</div></div>
+      <div class="stat-item"><span class="stat-value gold">12</span><div class="stat-label">World Clocks</div></div>
+      <div class="stat-item"><span class="stat-value gold">24</span><div class="stat-label">Watch Brands</div></div>
+      <div class="stat-item"><span class="stat-value gold">Live</span><div class="stat-label">Clock Updates</div></div>
+    </div>
+
+  </main>
+</div><!-- /section-watches -->
+
+<!-- ═══ POLICY MODAL ═══════════════════════════════════════ -->
+<div class="modal-overlay" id="policyModal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">Policy</h3>
+      <button class="modal-close" onclick="document.getElementById('policyModal').classList.remove('open')">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
   </div>
+</div>
 
-</main>
-
-<!-- ═══ FOOTER ═════════════════════════════════════════════════ -->
+<!-- ═══ FOOTER ════════════════════════════════════════════= -->
 <footer class="footer">
   Made with ❤️ and <a href="https://mermaid.js.org/" target="_blank">Mermaid</a> 🧜 &nbsp;·&nbsp;
-  <a href="https://github.com/mermaid-js/mermaid" target="_blank">GitHub</a>
+  <a href="https://mermaid.live/" target="_blank">Try Live Editor</a> &nbsp;·&nbsp;
+  ⌚ DueNorth Clocks &amp; Watches Policy
 </footer>
 
-<!-- ═══ SCRIPTS ════════════════════════════════════════════════ -->
+<!-- ═══ SCRIPTS ════════════════════════════════════════════ -->
 <script>
-/* ─── Diagram definitions ─────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   MERMAID DIAGRAM DEFINITIONS
+════════════════════════════════════════════════════════════ */
 const DIAGRAMS = {
   flowchart: `flowchart TD
     A([🚀 Start]) --> B{New Feature?}
@@ -752,7 +706,6 @@ const DIAGRAMS = {
     K --> L{QA Approved?}
     L -- No --> E
     L -- Yes --> M([🎉 Deploy to Production])
-
     style A fill:#4CAF50,color:#fff
     style M fill:#4CAF50,color:#fff
     style G fill:#FF9800,color:#fff
@@ -765,7 +718,6 @@ const DIAGRAMS = {
     participant API as REST API
     participant Auth as Auth Service
     participant DB as Database
-
     User->>Browser: Enter credentials
     Browser->>API: POST /auth/login
     API->>Auth: Validate credentials
@@ -774,9 +726,7 @@ const DIAGRAMS = {
     Auth-->>API: JWT token
     API-->>Browser: 200 OK + token
     Browser-->>User: Redirect to dashboard
-
     Note over User,Browser: Session begins
-
     User->>Browser: Request protected resource
     Browser->>API: GET /resource (Bearer token)
     API->>Auth: Verify token
@@ -790,25 +740,21 @@ const DIAGRAMS = {
     title Web Application Project Timeline
     dateFormat  YYYY-MM-DD
     excludes weekends
-
     section Planning
     Requirements gathering     :done,    req,  2024-01-01, 2024-01-10
     Architecture design        :done,    arch, 2024-01-08, 2024-01-18
     Tech stack selection       :done,    tech, 2024-01-15, 2024-01-19
-
     section Development
     Backend API                :active,  api,  2024-01-22, 30d
     Database schema            :done,    db,   2024-01-22, 10d
     Frontend components        :         fe,   2024-01-29, 25d
     Authentication module      :         auth, 2024-02-05, 10d
     Integration                :         int,  after fe,   7d
-
     section Testing
     Unit tests                 :         ut,   after api,  10d
     Integration tests          :         it,   after int,  7d
     Performance testing        :         pt,   after it,   5d
     User acceptance testing    :         uat,  after pt,   7d
-
     section Deployment
     Staging deployment         :         stg,  after uat,  3d
     Production deployment      :         prod, after stg,  2d
@@ -825,7 +771,6 @@ const DIAGRAMS = {
         +updateProfile(data) void
         +getOrders() Order[]
     }
-
     class Product {
         +int id
         +string name
@@ -836,7 +781,6 @@ const DIAGRAMS = {
         +isAvailable() bool
         +updateStock(qty) void
     }
-
     class Order {
         +int id
         +Date createdAt
@@ -847,14 +791,12 @@ const DIAGRAMS = {
         +calculateTotal() float
         +submit() void
     }
-
     class OrderItem {
         +int id
         +int quantity
         +float unitPrice
         +getSubtotal() float
     }
-
     class Cart {
         +int id
         +addProduct(product) void
@@ -862,7 +804,6 @@ const DIAGRAMS = {
         +checkout() Order
         +clear() void
     }
-
     class Payment {
         +int id
         +float amount
@@ -872,7 +813,6 @@ const DIAGRAMS = {
         +process() bool
         +refund() bool
     }
-
     User "1" --> "1" Cart : has
     User "1" --> "0..*" Order : places
     Order "1" *-- "1..*" OrderItem : contains
@@ -881,98 +821,37 @@ const DIAGRAMS = {
 
   state: `stateDiagram-v2
     [*] --> Pending : Order Placed
-
     Pending --> Processing : Payment Confirmed
     Pending --> Cancelled : Customer Cancels
-
     Processing --> Packed : Items Picked & Packed
     Processing --> Cancelled : Out of Stock
-
     Packed --> Shipped : Handed to Carrier
     Packed --> Processing : Packaging Error
-
     Shipped --> OutForDelivery : In Local Area
     Shipped --> Delayed : Weather/Logistics Issue
-
     Delayed --> OutForDelivery : Issue Resolved
-
     OutForDelivery --> Delivered : Customer Receives
     OutForDelivery --> FailedDelivery : No One Home
-
     FailedDelivery --> OutForDelivery : Re-attempt
     FailedDelivery --> Returned : Max Attempts Reached
-
     Delivered --> Refunded : Return Requested
     Returned --> Refunded : Return Processed
-
     Cancelled --> [*]
     Delivered --> [*]
     Refunded --> [*]
-
     note right of Shipped
         Tracking number
         emailed to customer
     end note`,
 
   er: `erDiagram
-    USER {
-        int id PK
-        string username UK
-        string email UK
-        string password_hash
-        string avatar_url
-        string bio
-        datetime created_at
-        datetime updated_at
-    }
-
-    POST {
-        int id PK
-        int author_id FK
-        int category_id FK
-        string title
-        string slug UK
-        text content
-        string status
-        datetime published_at
-        datetime created_at
-        datetime updated_at
-    }
-
-    CATEGORY {
-        int id PK
-        string name UK
-        string slug UK
-        string description
-    }
-
-    TAG {
-        int id PK
-        string name UK
-        string slug UK
-    }
-
-    POST_TAG {
-        int post_id FK
-        int tag_id FK
-    }
-
-    COMMENT {
-        int id PK
-        int post_id FK
-        int author_id FK
-        int parent_id FK
-        text content
-        datetime created_at
-    }
-
-    LIKE {
-        int id PK
-        int user_id FK
-        int post_id FK
-        datetime created_at
-    }
-
+    USER { int id PK; string username UK; string email UK; string password_hash; string avatar_url; string bio; datetime created_at; datetime updated_at }
+    POST { int id PK; int author_id FK; int category_id FK; string title; string slug UK; text content; string status; datetime published_at; datetime created_at; datetime updated_at }
+    CATEGORY { int id PK; string name UK; string slug UK; string description }
+    TAG { int id PK; string name UK; string slug UK }
+    POST_TAG { int post_id FK; int tag_id FK }
+    COMMENT { int id PK; int post_id FK; int author_id FK; int parent_id FK; text content; datetime created_at }
+    LIKE { int id PK; int user_id FK; int post_id FK; datetime created_at }
     USER ||--o{ POST : "authors"
     USER ||--o{ COMMENT : "writes"
     USER ||--o{ LIKE : "gives"
@@ -1022,7 +901,6 @@ const DIAGRAMS = {
     quadrant-2 Plan
     quadrant-3 Low Priority
     quadrant-4 Delegate
-
     Dark Mode: [0.2, 0.85]
     API Rate Limiting: [0.35, 0.9]
     OAuth Integration: [0.55, 0.88]
@@ -1054,21 +932,227 @@ const DIAGRAMS = {
     2023 : v10.0 - Architecture overhaul
          : Block diagrams & XY charts
     2024 : v11.0 - New themes and renderers
-         : Enhanced accessibility features`
+         : Enhanced accessibility features`,
+
+  /* ── WATCHES & CLOCKS POLICY DIAGRAMS ── */
+  warranty: `flowchart TD
+    A([🛒 Purchase Timepiece]) --> B[Register Warranty Online]
+    B --> C{Within 30 days?}
+    C -- No --> D[⚠️ Contact Support\nfor Late Registration]
+    C -- Yes --> E[✅ Warranty Activated\n2 Year International]
+    E --> F{Issue Detected?}
+    F -- No --> G([✨ Enjoy Your Watch])
+    F -- Yes --> H{Type of Issue?}
+    H -- Manufacturing Defect --> I[Submit Warranty Claim]
+    H -- Accidental Damage --> J[Accidental Damage\nPolicy — Paid Service]
+    H -- Normal Wear --> K[Routine Service\nRecommended]
+    I --> L{Under Warranty\nPeriod?}
+    L -- No --> J
+    L -- Yes --> M[Ship to Service Centre\nPrepaid Label Provided]
+    M --> N[Diagnostic Assessment\n5–7 Business Days]
+    N --> O{Covered?}
+    O -- Yes --> P[Repair at No Cost]
+    O -- Partial --> Q[Quote Provided\nfor Remaining Cost]
+    O -- No --> R[Full Repair Quote]
+    P --> S[Quality Check & Testing]
+    Q --> S
+    R --> T{Customer\nApproves?}
+    T -- No --> U([Watch Returned\nUnrepaired])
+    T -- Yes --> S
+    S --> V([🎉 Watch Returned\nwith 6-Month Service Warranty])
+    style A fill:#d4a843,color:#000
+    style V fill:#3fb950,color:#fff
+    style E fill:#3fb950,color:#000
+    style D fill:#f78166,color:#fff
+    style U fill:#f78166,color:#fff`,
+
+  service: `sequenceDiagram
+    actor Customer
+    participant Boutique as 🏪 Boutique
+    participant Tech as 🔧 Master Watchmaker
+    participant Parts as 📦 Parts Dept
+    participant QC as ✅ QC & Testing
+
+    Customer->>Boutique: Drop off timepiece + service request
+    Boutique->>Boutique: Visual inspection & condition report
+    Boutique->>Customer: Service intake receipt + ETA
+    Boutique->>Tech: Dispatch watch for assessment
+
+    Tech->>Tech: Full disassembly
+    Tech->>Tech: Ultrasonic cleaning of all components
+    Tech->>Parts: Request worn/damaged parts
+    Parts-->>Tech: Parts delivered (1–3 days)
+
+    Tech->>Tech: Movement reassembly & lubrication
+    Tech->>Tech: Regulation & timing adjustment
+    Tech->>QC: Submit for quality testing
+
+    QC->>QC: Timing accuracy test (±5 sec/day)
+    QC->>QC: Water resistance test (if applicable)
+    QC->>QC: Power reserve test
+    QC->>QC: Cosmetic inspection
+
+    alt Tests Pass
+        QC-->>Tech: ✅ Approved
+        Tech->>Boutique: Watch ready for collection
+        Boutique->>Customer: SMS/email notification
+        Customer->>Boutique: Collect watch + pay invoice
+    else Tests Fail
+        QC-->>Tech: ❌ Rework required
+        Tech->>Tech: Re-adjust & fix issues
+        Tech->>QC: Resubmit for testing
+    end`,
+
+  return: `stateDiagram-v2
+    [*] --> PurchaseComplete : Watch Purchased
+
+    PurchaseComplete --> ReturnRequested : Customer Initiates Return
+    PurchaseComplete --> ExchangeRequested : Customer Requests Exchange
+
+    ReturnRequested --> EligibilityCheck : System Reviews Request
+    ExchangeRequested --> EligibilityCheck : System Reviews Request
+
+    EligibilityCheck --> Eligible : Within 30 days, Unworn, Tags On
+    EligibilityCheck --> Ineligible : Outside window or worn
+
+    Ineligible --> ManagementReview : Customer Disputes
+    ManagementReview --> Eligible : Exception Granted
+    ManagementReview --> FinalDenial : Policy Upheld
+    FinalDenial --> [*] : Case Closed
+
+    Eligible --> ShippingLabelSent : Return Label Issued
+    ShippingLabelSent --> InTransit : Customer Ships Watch
+    InTransit --> ReceivedAtWarehouse : Delivery Confirmed
+
+    ReceivedAtWarehouse --> Inspection : Quality Assessment
+
+    Inspection --> ConditionGood : Watch Meets Standards
+    Inspection --> ConditionPoor : Damage Found
+
+    ConditionPoor --> DamageAssessment : Calculate Deduction
+    DamageAssessment --> PartialRefund : Reduced Refund Offered
+    ConditionGood --> FullRefundProcessing : Approve Full Refund
+
+    PartialRefund --> CustomerApproves : Customer Accepts
+    PartialRefund --> Dispute : Customer Rejects
+
+    Dispute --> ManagementReview
+
+    CustomerApproves --> RefundIssued : Payment Processed 3–5 days
+    FullRefundProcessing --> RefundIssued : Payment Processed 3–5 days
+
+    RefundIssued --> [*] : ✅ Complete
+
+    note right of Inspection
+        All returns inspected within
+        2 business days of receipt
+    end note`,
+
+  brands: `flowchart TD
+    ROOT([⌚ Fine Timepieces]) --> LUXURY[💎 Ultra Luxury\n> $10,000]
+    ROOT --> PREMIUM[🥇 Premium\n$1,000 – $10,000]
+    ROOT --> MID[🥈 Mid-Range\n$200 – $1,000]
+    ROOT --> ACCESS[🥉 Accessible\n< $200]
+
+    LUXURY --> SW[Swiss Haute Horlogerie]
+    SW --> PP[Patek Philippe]
+    SW --> AP[Audemars Piguet]
+    SW --> VC[Vacheron Constantin]
+    SW --> RM[Richard Mille]
+
+    PREMIUM --> PREM_SW[Swiss Prestige]
+    PREM_SW --> ROL[Rolex]
+    PREM_SW --> OMG[Omega]
+    PREM_SW --> IWC[IWC]
+    PREM_SW --> TAG[TAG Heuer]
+
+    PREMIUM --> PREM_JP[Japanese Prestige]
+    PREM_JP --> GRA[Grand Seiko]
+    PREM_JP --> CIT[Citizen Campanola]
+
+    MID --> MID_SW[Swiss Mid]
+    MID_SW --> LON[Longines]
+    MID_SW --> TIS[Tissot]
+    MID_SW --> HAM[Hamilton]
+
+    MID --> MID_JP[Japanese Mid]
+    MID_JP --> SEI[Seiko]
+    MID_JP --> ORI[Orient]
+
+    ACCESS --> ACC_Q[Quartz / Fashion]
+    ACC_Q --> CAS[Casio / G-Shock]
+    ACC_Q --> SWA[Swatch]
+    ACC_Q --> TIM[Timex]
+
+    style ROOT fill:#d4a843,color:#000
+    style LUXURY fill:#b8860b,color:#fff
+    style PREMIUM fill:#4a4a4a,color:#fff
+    style MID fill:#2d4a2d,color:#fff
+    style ACCESS fill:#1a2a4a,color:#fff`,
+
+  svcgantt: `gantt
+    title Watch Full Service & Overhaul Timeline
+    dateFormat  YYYY-MM-DD
+    section Intake & Assessment
+    Customer drop-off & paperwork    :done,    intake,  2024-02-01, 1d
+    Visual & functional assessment   :done,    assess,  2024-02-01, 1d
+    Quote preparation & approval     :done,    quote,   2024-02-02, 2d
+    section Disassembly & Cleaning
+    Full movement disassembly        :active,  disasm,  2024-02-05, 1d
+    Ultrasonic parts cleaning        :         clean,   2024-02-05, 1d
+    Case & bracelet polishing        :         polish,  2024-02-06, 2d
+    section Parts & Repairs
+    Parts inspection & ordering      :         parts,   2024-02-06, 3d
+    Worn components replacement      :         replace, after parts, 2d
+    Crystal replacement if needed    :         crystal, 2024-02-07, 1d
+    section Reassembly
+    Movement reassembly              :         reassm,  2024-02-12, 2d
+    Lubrication & regulation         :         lube,    2024-02-13, 1d
+    Case resealing & gaskets         :         seal,    2024-02-14, 1d
+    section Quality Control
+    Timing accuracy testing          :         timing,  2024-02-15, 2d
+    Water resistance pressure test   :         water,   2024-02-15, 1d
+    Power reserve validation         :         power,   2024-02-16, 1d
+    Final cosmetic inspection        :         cosm,    2024-02-17, 1d
+    section Return
+    Customer notification            :         notify,  2024-02-18, 1d
+    Collection & payment             :         collect, 2024-02-19, 1d`
 };
 
-/* ─── Theme toggle ────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   SECTION SWITCHING
+════════════════════════════════════════════════════════════ */
+let watchesDiagramsRendered = false;
+
+function showSection(name) {
+  document.getElementById('section-mermaid').style.display = name === 'mermaid' ? 'block' : 'none';
+  document.getElementById('section-watches').style.display = name === 'watches' ? 'block' : 'none';
+  document.getElementById('btn-mermaid').classList.toggle('active', name === 'mermaid');
+  document.getElementById('btn-watches').classList.toggle('active', name === 'watches');
+
+  if (name === 'watches' && !watchesDiagramsRendered) {
+    watchesDiagramsRendered = true;
+    renderWatchDiagrams();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ════════════════════════════════════════════════════════════
+   THEME TOGGLE
+════════════════════════════════════════════════════════════ */
 const themeBtn = document.getElementById('themeToggle');
 let dark = true;
 themeBtn.addEventListener('click', () => {
   dark = !dark;
   document.documentElement.setAttribute('data-theme', dark ? '' : 'light');
   themeBtn.textContent = dark ? '🌙' : '☀️';
-  // Re-render with matching theme
   renderAll(dark ? 'default' : 'default');
+  if (watchesDiagramsRendered) renderWatchDiagrams();
 });
 
-/* ─── Tab switching ───────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   TAB SWITCHING
+════════════════════════════════════════════════════════════ */
 function switchTab(btn, panelId) {
   const card = btn.closest('.diagram-card');
   card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1077,7 +1161,9 @@ function switchTab(btn, panelId) {
   document.getElementById(panelId).classList.add('active');
 }
 
-/* ─── Copy code ───────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   COPY CODE
+════════════════════════════════════════════════════════════ */
 function copyCode(btn, key) {
   navigator.clipboard.writeText(DIAGRAMS[key]).then(() => {
     btn.textContent = '✅ Copied';
@@ -1086,54 +1172,284 @@ function copyCode(btn, key) {
   });
 }
 
-/* ─── Populate code panels with plain text ────────────────── */
+/* ════════════════════════════════════════════════════════════
+   POPULATE CODE PANELS
+════════════════════════════════════════════════════════════ */
 Object.keys(DIAGRAMS).forEach(key => {
   const el = document.getElementById('raw-' + key);
   if (el) el.textContent = DIAGRAMS[key];
 });
 
-/* ─── Render diagrams ─────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   MERMAID RENDERING
+════════════════════════════════════════════════════════════ */
 let renderCount = 0;
 
-async function renderDiagram(key, theme) {
+async function renderDiagram(key) {
   const panel = document.getElementById('preview-' + key);
+  if (!panel) return;
   const spinner = document.getElementById('spin-' + key);
-
-  // Show spinner
-  if (spinner) spinner.style.display = 'block';
-
+  if (spinner) spinner.style.display = 'flex';
   try {
-    const id = 'mermaid-' + key + '-' + (++renderCount);
+    const id = 'mer-' + key + '-' + (++renderCount);
     const { svg } = await window.mermaid.render(id, DIAGRAMS[key]);
     panel.innerHTML = `<div class="mermaid-wrap">${svg}</div>`;
   } catch (err) {
-    panel.innerHTML = `<div style="color:var(--pink);font-family:monospace;font-size:.8rem;padding:16px;">⚠️ Render error: ${err.message}</div>`;
+    panel.innerHTML = `<div style="color:var(--pink);font-family:monospace;font-size:.8rem;padding:16px;">⚠️ ${err.message}</div>`;
   }
 }
 
-async function renderAll(theme) {
-  window.mermaid.initialize({
-    startOnLoad: false,
-    theme: theme || 'default',
-    securityLevel: 'loose',
-    fontFamily: 'Inter, sans-serif',
-    gantt: { axisFormat: '%m/%d', titleTopMargin: 25 },
+async function renderAll() {
+  window.mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose', fontFamily: 'Inter, sans-serif' });
+  const keys = ['flowchart','sequence','gantt','class','state','er','journey','pie','quadrant','timeline'];
+  for (const k of keys) await renderDiagram(k);
+}
+
+async function renderWatchDiagrams() {
+  window.mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose', fontFamily: 'Inter, sans-serif' });
+  const keys = ['warranty','service','return','brands','svcgantt'];
+  for (const k of keys) await renderDiagram(k);
+}
+
+/* ════════════════════════════════════════════════════════════
+   WORLD CLOCKS
+════════════════════════════════════════════════════════════ */
+const ZONES = [
+  { city: 'New York',    tz: 'America/New_York',     flag: '🇺🇸' },
+  { city: 'London',      tz: 'Europe/London',         flag: '🇬🇧' },
+  { city: 'Geneva',      tz: 'Europe/Zurich',         flag: '🇨🇭' },
+  { city: 'Paris',       tz: 'Europe/Paris',          flag: '🇫🇷' },
+  { city: 'Tokyo',       tz: 'Asia/Tokyo',            flag: '🇯🇵' },
+  { city: 'Hong Kong',   tz: 'Asia/Hong_Kong',        flag: '🇭🇰' },
+  { city: 'Dubai',       tz: 'Asia/Dubai',            flag: '🇦🇪' },
+  { city: 'Sydney',      tz: 'Australia/Sydney',      flag: '🇦🇺' },
+  { city: 'Los Angeles', tz: 'America/Los_Angeles',   flag: '🇺🇸' },
+  { city: 'São Paulo',   tz: 'America/Sao_Paulo',     flag: '🇧🇷' },
+  { city: 'Singapore',   tz: 'Asia/Singapore',        flag: '🇸🇬' },
+  { city: 'Mumbai',      tz: 'Asia/Kolkata',          flag: '🇮🇳' },
+];
+
+const HERO_ZONES = [
+  { city: 'New York', tz: 'America/New_York' },
+  { city: 'London',   tz: 'Europe/London'    },
+  { city: 'Geneva',   tz: 'Europe/Zurich'    },
+  { city: 'Tokyo',    tz: 'Asia/Tokyo'       },
+  { city: 'Sydney',   tz: 'Australia/Sydney' },
+];
+
+function formatTime(tz) {
+  return new Date().toLocaleTimeString('en-GB', { timeZone: tz, hour12: false, hour:'2-digit', minute:'2-digit', second:'2-digit' });
+}
+function formatDate(tz) {
+  return new Date().toLocaleDateString('en-GB', { timeZone: tz, weekday:'short', month:'short', day:'numeric' });
+}
+function getHourFraction(tz) {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat('en', { timeZone: tz, hour:'numeric', minute:'numeric', second:'numeric', hour12:false }).formatToParts(now);
+  const get = t => parseInt(parts.find(p=>p.type===t)?.value||'0');
+  return (get('hour')%24) / 24;
+}
+
+// Hero mini clocks
+function buildHeroClocks() {
+  const el = document.getElementById('heroClocks');
+  if (!el) return;
+  el.innerHTML = HERO_ZONES.map(z => `
+    <div class="world-clock-mini">
+      <div class="wc-city">${z.city}</div>
+      <div class="wc-time" id="hclock-${z.city.replace(' ','_')}">${formatTime(z.tz)}</div>
+      <div class="wc-date">${formatDate(z.tz)}</div>
+    </div>`).join('');
+}
+
+function updateHeroClocks() {
+  HERO_ZONES.forEach(z => {
+    const el = document.getElementById('hclock-' + z.city.replace(' ','_'));
+    if (el) el.textContent = formatTime(z.tz);
   });
+}
 
-  const keys = Object.keys(DIAGRAMS);
-  for (const key of keys) {
-    await renderDiagram(key, theme);
+// Full world clock grid
+function buildWorldClocks() {
+  const grid = document.getElementById('worldClocksGrid');
+  if (!grid) return;
+  grid.innerHTML = ZONES.map(z => `
+    <div class="world-clock-card">
+      <div class="wcc-city">${z.flag} ${z.city}</div>
+      <div class="wcc-time" id="wclock-${z.city.replace(/\s/g,'_')}">${formatTime(z.tz)}</div>
+      <div class="wcc-extra">${formatDate(z.tz)}</div>
+      <div class="wcc-bar"><div class="wcc-fill" id="wbar-${z.city.replace(/\s/g,'_')}" style="width:${getHourFraction(z.tz)*100}%"></div></div>
+    </div>`).join('');
+}
+
+function updateWorldClocks() {
+  ZONES.forEach(z => {
+    const key = z.city.replace(/\s/g,'_');
+    const tel = document.getElementById('wclock-' + key);
+    const bar = document.getElementById('wbar-' + key);
+    if (tel) tel.textContent = formatTime(z.tz);
+    if (bar) bar.style.width = (getHourFraction(z.tz)*100) + '%';
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   ANALOG CLOCK
+════════════════════════════════════════════════════════════ */
+function updateAnalogClock() {
+  const now = new Date();
+  const s = now.getSeconds(), m = now.getMinutes(), h = now.getHours() % 12;
+  const sDeg = s * 6;
+  const mDeg = m * 6 + s * 0.1;
+  const hDeg = h * 30 + m * 0.5;
+
+  const hourH = document.getElementById('hourHand');
+  const minH  = document.getElementById('minuteHand');
+  const secH  = document.getElementById('secondHand');
+  if (hourH) hourH.style.transform = `rotate(${hDeg}deg)`;
+  if (minH)  minH.style.transform  = `rotate(${mDeg}deg)`;
+  if (secH)  secH.style.transform  = `rotate(${sDeg}deg)`;
+
+  const timeBig = document.getElementById('localTimeBig');
+  const dateStr = document.getElementById('localDateStr');
+  const tzStr   = document.getElementById('localTzStr');
+  if (timeBig) timeBig.textContent = now.toLocaleTimeString('en-GB', { hour12: false });
+  if (dateStr) dateStr.textContent = now.toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  if (tzStr)   tzStr.textContent   = Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
+/* ════════════════════════════════════════════════════════════
+   WATCH COLLECTION DATA
+════════════════════════════════════════════════════════════ */
+const WATCHES = [
+  { emoji:'🕐', brand:'Patek Philippe', name:'Calatrava Ref. 5227', price:'$29,500', badges:['Automatic','18K Gold','2yr Warranty'], gold:true },
+  { emoji:'⌚', brand:'Rolex',          name:'Submariner Date',     price:'$10,800', badges:['Automatic','Steel','Waterproof 300m'], gold:true },
+  { emoji:'🕰️', brand:'Omega',          name:'Speedmaster Moonwatch',price:'$6,200',badges:['Manual Wind','Co-Axial','NATO Strap'], gold:false },
+  { emoji:'🕑', brand:'IWC',            name:'Portugieser Chrono',  price:'$8,900', badges:['Automatic','Rattrapante','Flyback'], gold:false },
+  { emoji:'🕒', brand:'TAG Heuer',      name:'Carrera Chronograph', price:'$3,400', badges:['Automatic','Ceramic Bezel','100m WR'], gold:false },
+  { emoji:'🕓', brand:'Grand Seiko',    name:'SBGA211 Snowflake',   price:'$5,800', badges:['Spring Drive','Titanium','45h Reserve'], gold:true },
+  { emoji:'🕔', brand:'Longines',       name:'Master Collection',   price:'$1,950', badges:['Automatic','Moon Phase','24h Indicator'], gold:false },
+  { emoji:'🕕', brand:'Hamilton',       name:'Khaki Field Auto',    price:'$595',   badges:['Automatic','80h Reserve','Sapphire'], gold:false },
+];
+
+function buildWatchCollection() {
+  const el = document.getElementById('watchCollection');
+  if (!el) return;
+  el.innerHTML = WATCHES.map(w => `
+    <div class="watch-card" onclick="openWatchModal('${w.brand}','${w.name}','${w.price}')">
+      <div class="watch-emoji">${w.emoji}</div>
+      <div class="watch-brand">${w.brand}</div>
+      <div class="watch-name">${w.name}</div>
+      <div class="watch-price">${w.price}</div>
+      <div class="watch-badges">${w.badges.map(b=>`<span class="watch-badge${w.gold?' gold':''}">${b}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════════
+   POLICY CARDS
+════════════════════════════════════════════════════════════ */
+const POLICIES = [
+  {
+    icon:'🛡️', title:'International Warranty',
+    summary:'All timepieces carry a 2-year international manufacturer warranty covering defects in materials and workmanship.',
+    tag:'2-Year Coverage',
+    details: ['Covers movement and case manufacturing defects','Free repair or replacement at authorised service centres worldwide','Transferable to second owner within warranty period','Register within 30 days of purchase to activate','Does not cover accidental damage, water damage beyond rating, or normal wear']
+  },
+  {
+    icon:'↩️', title:'30-Day Return Policy',
+    summary:'Unworn timepieces in original condition with all packaging may be returned within 30 days for a full refund.',
+    tag:'30-Day Window',
+    details: ['Item must be unworn with original tags intact','Original box, papers, and accessories required','Return shipping label provided free of charge','Refund processed within 3–5 business days','Custom or engraved pieces are non-returnable']
+  },
+  {
+    icon:'🔧', title:'Servicing & Maintenance',
+    summary:'Recommended full service every 3–5 years. Complimentary water resistance testing annually for all registered owners.',
+    tag:'Certified Watchmakers',
+    details: ['Full movement service includes disassembly, cleaning, lubrication, and regulation','Timing accuracy target: ±5 seconds per day','Water resistance testing and gasket replacement included','Case and bracelet polishing available as add-on','All serviced watches receive a 6-month service warranty']
+  },
+  {
+    icon:'🔐', title:'Authentication Policy',
+    summary:'Every timepiece sold includes a Certificate of Authenticity and is verified by our certified horologists.',
+    tag:'100% Authenticated',
+    details: ['Serial number verified against manufacturer database','Movement inspection confirms genuine parts','Holographic Certificate of Authenticity provided','NFC-enabled authentication tag on luxury pieces','Lifetime authenticity guarantee on all purchases']
+  },
+  {
+    icon:'🚚', title:'Shipping & Insurance',
+    summary:'All watches ship fully insured with signature required delivery. Free insured shipping on orders over $500.',
+    tag:'Fully Insured',
+    details: ['Discreet, tamper-evident secure packaging','Full declared value insurance included','Signature required on all timepiece deliveries','Tracked from dispatch to door','International shipping available to 60+ countries']
+  },
+  {
+    icon:'💳', title:'Payment & Financing',
+    summary:'Flexible payment options including 0% financing for 12 months on orders over $2,000 with approved credit.',
+    tag:'0% Financing Available',
+    details: ['All major credit cards accepted','0% APR for 12 months on purchases over $2,000','Cryptocurrency accepted (BTC, ETH) for all orders','Bank wire transfer available for orders over $5,000','Secure, PCI-DSS compliant payment processing']
+  },
+];
+
+function buildPolicyCards() {
+  const el = document.getElementById('policyGrid');
+  if (!el) return;
+  el.innerHTML = POLICIES.map((p,i) => `
+    <div class="policy-card" onclick="openPolicyModal(${i})" style="cursor:pointer">
+      <div class="policy-card-icon">${p.icon}</div>
+      <h3>${p.title}</h3>
+      <p>${p.summary}</p>
+      <span class="policy-tag">⌚ ${p.tag}</span>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODALS
+════════════════════════════════════════════════════════════ */
+function openPolicyModal(idx) {
+  const p = POLICIES[idx];
+  document.getElementById('modalTitle').textContent = p.icon + ' ' + p.title;
+  document.getElementById('modalBody').innerHTML = `
+    <p>${p.summary}</p>
+    <ul class="policy-list">${p.details.map(d=>`<li>${d}</li>`).join('')}</ul>`;
+  document.getElementById('policyModal').classList.add('open');
+}
+
+function openWatchModal(brand, name, price) {
+  document.getElementById('modalTitle').textContent = '⌚ ' + brand + ' · ' + name;
+  document.getElementById('modalBody').innerHTML = `
+    <p><strong>Price:</strong> ${price}</p>
+    <ul class="policy-list">
+      <li>Covered by our 2-Year International Warranty</li>
+      <li>30-day return window from date of purchase</li>
+      <li>Eligible for complimentary annual water resistance test</li>
+      <li>Full movement service recommended every 3–5 years</li>
+      <li>Certificate of Authenticity included with purchase</li>
+      <li>Fully insured shipping with signature required delivery</li>
+    </ul>`;
+  document.getElementById('policyModal').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('policyModal')) {
+    document.getElementById('policyModal').classList.remove('open');
   }
 }
 
-/* ─── Boot ────────────────────────────────────────────────── */
-// Wait for mermaid module to load
+/* ════════════════════════════════════════════════════════════
+   BOOT
+════════════════════════════════════════════════════════════ */
 function boot() {
-  if (!window.mermaid) {
-    setTimeout(boot, 100);
-    return;
-  }
-  renderAll('default');
+  if (!window.mermaid) { setTimeout(boot, 100); return; }
+  // Build static content
+  buildHeroClocks();
+  buildWorldClocks();
+  buildWatchCollection();
+  buildPolicyCards();
+  // Start clocks
+  updateAnalogClock();
+  setInterval(() => {
+    updateAnalogClock();
+    updateHeroClocks();
+    updateWorldClocks();
+  }, 1000);
+  // Render mermaid diagrams
+  renderAll();
 }
 boot();
 </script>
