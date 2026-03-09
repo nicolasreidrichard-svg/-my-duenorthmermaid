@@ -3,7 +3,7 @@
 > **Making Mermaid AWESOME** — A comprehensive showcase of [Mermaid](https://mermaid.js.org/) diagram types, from simple flowcharts to complex entity-relationship diagrams.
 
 [![Mermaid](https://img.shields.io/badge/Made%20with-Mermaid-ff69b4.svg)](https://mermaid.js.org/)
-[![Diagrams](https://img.shields.io/badge/Diagrams-10%20Types-blue.svg)](#diagram-types)
+[![Diagrams](https://img.shields.io/badge/Diagrams-11%20Types-blue.svg)](#diagram-types)
 
 ---
 
@@ -19,6 +19,7 @@
 - [Pie Chart](#-pie-chart)
 - [Quadrant Chart](#-quadrant-chart)
 - [Timeline](#-timeline)
+- [Mindmap](#-mindmap)
 
 ---
 
@@ -419,6 +420,54 @@ timeline
          : Block diagrams & XY charts
     2024 : v11.0 - New themes and renderers
          : Enhanced accessibility features
+```
+
+---
+
+## 🧠 Mindmap
+
+A mindmap showing the ecosystem around Mermaid.js:
+
+```mermaid
+mindmap
+  root((Mermaid.js))
+    Diagram Types
+      Flowchart
+      Sequence
+      Gantt
+      Class
+      State
+      ER
+      Journey
+      Pie
+      Quadrant
+      Timeline
+      Mindmap
+    Integrations
+      GitHub
+        Native rendering
+        Actions workflows
+      VS Code
+        Extensions
+        Preview
+      Confluence
+      Notion
+      Obsidian
+    Rendering
+      Browser
+        CDN
+        npm package
+      CLI
+        mmdc
+        SVG output
+        PNG output
+      Server-side
+    Themes
+      Default
+      Forest
+      Dark
+      Neutral
+      Base
 ```
 
 ---
